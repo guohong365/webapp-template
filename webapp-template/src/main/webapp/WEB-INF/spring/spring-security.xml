@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:security="http://www.springframework.org/schema/security"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
+		http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-4.0.xsd">
+
+  <bean id="myUserDetailService" class="com.uc.web.security.MyUserDetailsService">
+    <property name="securityService" ref="securityService" />
+  </bean>
+  
+  <bean id="securityRequestMapFactoryBean" class="com.uc.web.security.SecurityMetadataSourceFactoryBean">
+    <property name="securityService" ref="securityService" />
+  </bean>
+  
+  <bean id="securityMetaDataSource" class="org.springframework.security.web.access.intercept.DefaultFilterInvocationSecurityMetadataSource">
+    <constructor-arg type="java.util.LinkedHashMap" ref="securityRequestMapFactoryBean" />
+  </bean>
+  
+  <bean id="affirmativeBased" class="org.springframework.security.access.vote.AffirmativeBased">
+    <constructor-arg>
+      <list>
+        <bean class="org.springframework.security.access.vote.RoleVoter" />
+      </list>
+    </constructor-arg>
+  </bean>
+  
+  <security:authentication-manager alias="authenitcationManager">
+    <security:authentication-provider user-service-ref="myUserDetailService">
+      <security:password-encoder hash="md5" />
+    </security:authentication-provider>
+    
+  </security:authentication-manager>
+
+  <bean id="securityFilter" class="org.springframework.security.web.access.intercept.FilterSecurityInterceptor">
+    <property name="authenticationManager" ref="authenitcationManager" />
+    <property name="accessDecisionManager" ref="affirmativeBased" />
+    <property name="securityMetadataSource" ref="securityMetaDataSource" />
+  </bean>
+
+
+  <security:http pattern="/resources/**" security="none" />
+  <security:http pattern="/login*" security="none" />
+  <security:http pattern="/403" security="none" />
+  <security:http pattern="/404" security="none" />
+  <security:http pattern="/500" security="none" />
+  
+  <security:http use-expressions="true" >
+  <security:intercept-url pattern="/**" access="IS_AUTHENTICATED_ANONYMOUSLY"/>
+  <security:form-login
+  login-page="/login"
+  username-parameter="userId"
+  password-parameter="password"
+  authentication-failure-url="/login?error=true"
+  default-target-url="/"
+  always-use-default-target="true" />
+  <security:logout logout-url="/logout" logout-success-url="/login"/>
+  <security:session-management invalid-session-url="/login" />
+  <security:custom-filter ref="securityFilter" before="FILTER_SECURITY_INTERCEPTOR" />
+  <security:access-denied-handler error-page="/403"/>    
+  </security:http>
+</beans>
