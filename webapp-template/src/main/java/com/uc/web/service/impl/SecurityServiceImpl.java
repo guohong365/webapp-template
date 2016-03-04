@@ -3,11 +3,13 @@ package com.uc.web.service.impl;
 import java.util.List;
 
 import com.uc.utils.TreeItem;
+import com.uc.web.domain.system.Role;
+import com.uc.web.domain.system.RoleResource;
+import com.uc.web.domain.system.UserInfo;
+import com.uc.web.domain.system.UserInfoBase;
 import com.uc.web.forms.MenuItem;
 import com.uc.web.forms.MenuTree;
-import com.uc.web.forms.security.RoleResource;
-import com.uc.web.forms.security.UserInfo;
-import com.uc.web.persistence.UserInfoMapper;
+import com.uc.web.persistence.security.UserInfoMapper;
 import com.uc.web.service.SecurityService;
 
 public class SecurityServiceImpl implements SecurityService {
@@ -23,8 +25,11 @@ public class SecurityServiceImpl implements SecurityService {
 	}
 	
 	@Override
-	public UserInfo selectUserInfo(String userId) {		
-		return getUserInfoMapper().selectById(userId);
+	public UserInfo selectUserInfo(String userId) {	
+		UserInfoBase userInfo=(UserInfoBase) getUserInfoMapper().selectById(userId);
+		List<Role> roles=getUserInfoMapper().selectRolesByUser(userId);
+		userInfo.setRoles(roles);
+		return userInfo;
 	}
 
 	@Override

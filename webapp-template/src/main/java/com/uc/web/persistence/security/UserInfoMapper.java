@@ -1,10 +1,11 @@
-package com.uc.web.persistence;
+package com.uc.web.persistence.security;
 
 import java.util.List;
 
+import com.uc.web.domain.system.Role;
+import com.uc.web.domain.system.RoleResource;
+import com.uc.web.domain.system.UserInfo;
 import com.uc.web.forms.MenuItem;
-import com.uc.web.forms.security.RoleResource;
-import com.uc.web.forms.security.UserInfo;
 
 public interface UserInfoMapper {
 
@@ -13,5 +14,7 @@ public interface UserInfoMapper {
 	List<RoleResource> selectResources();
 
 	List<MenuItem> selectMenuItems(String userId);
+	
+	List<Role> selectRolesByUser(String userId);
 
 }

@@ -1,4 +1,4 @@
-package com.uc.web.forms.security;
+package com.uc.web.domain.system;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -8,8 +8,6 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import com.uc.utils.TreeItem;
 import com.uc.web.forms.MenuItem;
-import com.uc.web.forms.system.Role;
-import com.uc.web.forms.system.UserBase;
 
 public class UserInfoBase extends UserBase implements UserInfo {
 	private static final long serialVersionUID = 5375835512650609806L;

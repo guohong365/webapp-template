@@ -1,4 +1,4 @@
-package com.uc.web.forms.system;
+package com.uc.web.domain.system;
 
 public class OrgnizationBase implements Orgnization {
 @Override

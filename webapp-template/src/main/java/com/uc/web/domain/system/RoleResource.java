@@ -1,4 +1,4 @@
-package com.uc.web.forms.security;
+package com.uc.web.domain.system;
 
 public interface RoleResource {
 

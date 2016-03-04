@@ -1,4 +1,4 @@
-package com.uc.web.forms;
+package com.uc.web.domain.system;
 
 public interface CodeTable {
 

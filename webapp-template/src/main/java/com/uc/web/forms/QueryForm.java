@@ -2,7 +2,7 @@ package com.uc.web.forms;
 
 import java.util.Map;
 
-import com.uc.web.forms.security.UserInfo;
+import com.uc.web.domain.system.UserInfo;
 
 public interface QueryForm {
 

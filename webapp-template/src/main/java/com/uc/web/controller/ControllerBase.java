@@ -11,12 +11,12 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.ui.Model;
 
 import com.uc.utils.exportor.Exportor;
-import com.uc.web.forms.CodeTable;
+import com.uc.web.domain.system.CodeTable;
+import com.uc.web.domain.system.UserInfo;
 import com.uc.web.forms.IPageCtrl;
 import com.uc.web.forms.PageCtrl;
 import com.uc.web.forms.QueryForm;
 import com.uc.web.forms.WebListFormBase;
-import com.uc.web.forms.security.UserInfo;
 import com.uc.web.service.AppService;
 
 public abstract class ControllerBase<QueryFormType extends QueryForm, DetailType extends Object> extends ControllerSupport {

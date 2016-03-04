@@ -4,7 +4,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
-import com.uc.web.forms.security.UserInfo;
+import com.uc.web.domain.system.UserInfo;
 import com.uc.web.service.SecurityService;
 
 public class MyUserDetailsService implements UserDetailsService {

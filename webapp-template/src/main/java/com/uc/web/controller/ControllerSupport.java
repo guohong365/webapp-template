@@ -3,7 +3,7 @@ package com.uc.web.controller;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 import com.uc.utils.LoggerSupportorImpl;
-import com.uc.web.forms.security.UserInfo;
+import com.uc.web.domain.system.UserInfo;
 import com.uc.web.service.SystemService;
 
 public class ControllerSupport extends LoggerSupportorImpl {

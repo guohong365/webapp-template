@@ -14,7 +14,7 @@ import org.springframework.security.access.SecurityConfig;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.security.web.util.matcher.RequestMatcher;
 
-import com.uc.web.forms.security.RoleResource;
+import com.uc.web.domain.system.RoleResource;
 import com.uc.web.service.SecurityService;
 
 public class SecurityMetadataSourceFactoryBean extends LinkedHashMap<RequestMatcher, Collection<ConfigAttribute>>  {

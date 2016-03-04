@@ -1,4 +1,4 @@
-package com.uc.web.forms.system;
+package com.uc.web.domain.system;
 
 import java.util.List;
 
@@ -26,5 +26,9 @@ public interface User {
 
 	void setValid(boolean valid);
 
-	boolean isValid(); 
+	boolean isValid();
+
+	void setOrgId(String orgId);
+
+	String getOrgId(); 
 }

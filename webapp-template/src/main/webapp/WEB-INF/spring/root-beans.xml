@@ -4,10 +4,9 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.2.xsd">
 
 <bean id="userInfoMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
-  <property name="mapperInterface" value="com.uc.web.persistence.UserInfoMapper" />
+  <property name="mapperInterface" value="com.uc.web.persistence.security.UserInfoMapper" />
   <property name="sqlSessionFactory" ref="sqlSessionFactory" />
 </bean>
-
 
 <bean id="securityService" class="com.uc.web.service.impl.SecurityServiceImpl">
   <property name="userInfoMapper" ref="userInfoMapper" />
