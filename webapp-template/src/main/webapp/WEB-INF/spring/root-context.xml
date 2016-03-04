@@ -79,11 +79,12 @@
 	 <aop:advisor advice-ref="transactionAdvice" pointcut-ref="systemPointCut" />
 	</aop:config>
 	
+	<!-- TODO when develop app
 	<aop:config> 
 	 <aop:pointcut expression="execution(* com.uc.web.app.service..*Impl.*(..))" id="appPointCut"/>
 	 <aop:advisor advice-ref="transactionAdvice" pointcut-ref="appPointCut"/>
 	</aop:config>
-	
+	-->
 	<!-- 配置druid监控spring jdbc -->
   <bean id="druid-stat-interceptor"
     class="com.alibaba.druid.support.spring.stat.DruidStatInterceptor">

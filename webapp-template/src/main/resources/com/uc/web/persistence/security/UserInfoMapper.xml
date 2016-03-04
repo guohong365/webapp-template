@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.uc.web.persistence.security.UserInfoMapper">
+	<resultMap id="UserInfoResultMap" type="com.uc.web.domain.system.UserInfoBase">
+    <id column="USER_ID" jdbcType="VARCHAR" property="userId" />
+    <result column="USER_PWD" jdbcType="VARCHAR" property="password" />
+    <result column="USER_NAME" jdbcType="VARCHAR" property="nickName" />
+    <result column="USER_DESC" jdbcType="VARCHAR" property="description" />
+    <result column="USER_ORG" jdbcType="VARCHAR" property="orgId" />
+    <result column="USER_VALID" jdbcType="BIT" property="valid" />
+	</resultMap>
+
+	<resultMap id="UserMenuResultMap" type="com.uc.web.domain.system.UserMenu">
+		<result column="FUNC_URI" property="URI" jdbcType="VARCHAR" />
+		<result column="MENU_ID" property="id" jdbcType="VARCHAR" />
+		<result column="MENU_PARENT_ID" property="parentId"	jdbcType="VARCHAR" />
+		<result column="MENU_NAME" property="menuText" jdbcType="VARCHAR" />
+		<result column="MENU_ORDER" property="order" jdbcType="INTEGER" />
+		<result column="MENU_ICON" property="iconClass" jdbcType="VARCHAR" />
+	</resultMap>
+
+  <resultMap id="RoleReourceResultMap" type="com.uc.web.domain.system.RoleResourceBase">
+    <result column="ROLE_ID" jdbcType="VARCHAR" property="roleId" />
+    <result column="FUNC_URI_PATTERN" jdbcType="VARCHAR" property="uriPattern" />
+  </resultMap>
+  
+  <resultMap type="com.uc.web.domain.system.RoleBase" id="RoleResultMap">
+    <result column="ROLE_ID" jdbcType="VARCHAR" property="id" />
+    <result column="ROLE_NAME" jdbcType="VARCHAR" property="name"/>
+    <result column="ROLE_DESC" jdbcType="VARCHAR" property="description"/>
+    <result column="VALID" jdbcType="BIT" property="valid"/>
+  </resultMap>
+  
+  <sql id="UserRolesColumns">
+    t.ROLE_ID, t.ROLE_NAME, t.ROLE_DESC, t.VALID
+  </sql>
+
+  <sql id="UserBasicInfoColumns">
+    t.USER_ID, t.USER_PWD, t.USER_NAME, t.USER_DESC, t.USER_ORG
+  </sql>
+  
+  <sql id="UseMenuColumns" >
+    t.FUNC_URI, t.MENU_ID, t.MENU_PARENT_ID, t.MENU_NAME, t.MENU_ORDER, t.MENU_ICON
+  </sql>
+  
+  <sql id="UserMenuColumns">
+		t.FUNC_URI, t.MENU_ID, t.FUNC_ID, t.MENU_PARENT_ID, t.MENU_NAME,
+		t.MENU_ORDER,	t.MENU_ICON
+	</sql>
+	
+	<sql id="RoleResourcesColumns">
+	  t.ROLE_ID, t.FUNC_URI_PATTERN
+	</sql>
+	
+	
+	
+	<select id="selectRolesByUser" parameterType="java.lang.String" resultMap="RoleResultMap">
+		select 
+		<include refid="UserRolesColumns" />
+		FROM V_USER_ROLE t
+		where
+		t.USER_ID=#{userId, jdbcType=VARCHAR}
+		and t.VALID = true
+	</select>
+
+	<select id="selectMenuItems" parameterType="java.lang.String"	resultMap="UserMenuResultMap">
+		select
+		<include refid="UserMenuColumns" />
+		from v_user_menu t
+		where
+		t.USER_ID=#{userId} or
+		(t.FUNC_ID is null and exists(select 1 from v_user_menu B where
+		t.MENU_ID=B.MENU_PARENT_ID))
+		order by t.MENU_ID
+	</select>
+
+	<select id="selectById" resultMap="UserInfoResultMap"		parameterType="java.lang.String">
+		select
+		<include refid="UserBasicInfoColumns" />
+		from V_USER_DETAIL t where t.USER_ID=#{userId, jdbcType=VARCHAR}
+	</select>
+	
+	<select id="selectResources" resultMap="RoleReourceResultMap">
+	 select
+	 <include refid="RoleResourcesColumns" />
+	 from v_role_func t
+	</select>
+
+</mapper>
