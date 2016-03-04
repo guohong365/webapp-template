@@ -1,6 +1,17 @@
 package com.uc.web.domain.system;
 
 public class CodeTableImpl implements CodeTable {
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder
+		.append("[CodeTableImpl ")
+		.append("代码=[").append(getCode()).append("]")
+		.append("值=[").append(getValue()).append("]")
+		.append("有效=[").append(getValid()?"是":"否").append("]")
+		.append("]");
+		return builder.toString();
+	}
 	private String code;
 
 	private Boolean valid;

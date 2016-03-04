@@ -2,7 +2,7 @@ package com.uc.web.forms;
 
 import java.util.Map;
 
-import com.uc.web.domain.system.UserInfo;
+import com.uc.web.domain.system.User;
 
 public interface QueryForm {
 
@@ -10,9 +10,9 @@ public interface QueryForm {
 
 	String getQueryOrderBy();
 
-	UserInfo getQueryUser();
+	User getQueryUser();
 
-	void setQueryUser(UserInfo queryUser);
+	void setQueryUser(User queryUser);
 
 	String getOrderByClause();
 
