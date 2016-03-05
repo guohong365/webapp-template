@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.uc.web.persistence.system.UserDetailMapper">
+  <resultMap id="UserDetailResultMap" type="com.uc.web.domain.system.UserDetail">
+    <id column="USER_ID" jdbcType="VARCHAR" property="id" />
+    <result column="USER_PWD" jdbcType="VARCHAR" property="password" />
+    <result column="USER_NAME" jdbcType="VARCHAR" property="name" />
+    <result column="USER_TELE" jdbcType="VARCHAR" property="tele" />
+    <result column="USER_EMAIL" jdbcType="VARCHAR" property="email" />
+    <result column="ADMIN_FLAG" jdbcType="BIT" property="adminFlag" />
+    <result column="USER_ORG" jdbcType="VARCHAR" property="orgId" />
+    <result column="USER_CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="USER_CREATOR" jdbcType="VARCHAR" property="creator" />
+    <result column="CANCEL_TIME" jdbcType="TIMESTAMP" property="cancelTime" />
+    <result column="CANCELATOR" jdbcType="VARCHAR" property="cancelator" />
+    <result column="USER_DESC" jdbcType="VARCHAR" property="description" />
+    <result column="VALID" jdbcType="BIT" property="valid" />
+    <result column="CANCELATOR_NAME" jdbcType="VARCHAR" property="cancelatorName" />
+    <result column="CREATOR_NAME" jdbcType="VARCHAR" property="creatorName" />
+    <result column="ORG_NAME" jdbcType="VARCHAR" property="orgName" />
+    <result column="ORG_CITY" jdbcType="VARCHAR" property="orgCity" />
+    <result column="ORG_AREA" jdbcType="VARCHAR" property="orgArea" />
+    <result column="ORG_TYPE" jdbcType="VARCHAR" property="orgType" />
+    <result column="CITY_NAME" jdbcType="VARCHAR" property="cityName" />
+    <result column="AREA_NAME" jdbcType="VARCHAR" property="areaName" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="UserDetailColumns">
+    USER_ID, USER_PWD, USER_NAME, USER_TELE, USER_EMAIL, ADMIN_FLAG, USER_ORG, USER_CREATE_TIME, USER_CREATOR, CANCEL_TIME, 
+    CANCELATOR, USER_DESC, VALID, CANCELATOR_NAME, CREATOR_NAME, ORG_NAME, ORG_CITY, 
+    ORG_AREA, ORG_TYPE, CITY_NAME, AREA_NAME
+  </sql>
+  <select id="selectByExample" parameterType="map" resultMap="UserDetailResultMap">
+    select
+    <if test="example.distinct">
+      distinct
+    </if>
+    <include refid="UserDetailColumns" />
+    from v_user_detail
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+    <if test="example.orderByClause != null">
+      order by ${example.orderByClause}
+    </if>
+    limit ${offset}, ${count}
+  </select>
+  
+  <insert id=insetUserRoles parameterType="map">
+    delete from user_role where USER_ID = #{userId, jdbcType=VARCHAR};
+    <if test="roles !=null">
+    <foreach collection="roles" item="role">
+      <if test="role.valid">
+        insert into (USER_ID, ROLE_ID) values (#{userId, jdbcType=VARCHAR}, #{role.id, jdbcType=VARCHAR});
+      </if>  
+    </foreach>
+    </if>
+  </insert>
+  
+  <select id="selectUserRoles" parameterType="java.lang.String" resultMap="com.uc.web.persistence.system.RoleDetailMapper.RoleDetailMap">
+    select 
+    <include refid="com.uc.web.persistence.system.RoleDetailMapper.RoleDetailColumns" />
+    from v_user_role
+    where USER_ID = #{userId, jdbcType=VARCHAR}
+  </select>
+  
+  <insert id="insertDetail" parameterType="com.uc.web.domain.system.UserDetail">
+    insert into user (USER_ID, USER_PWD, USER_NAME, 
+      USER_TELE, USER_EMAIL, ADMIN_FLAG, 
+      USER_ORG_ID, USER_CREATE_TIME, USER_CREATOR, 
+      CANCEL_TIME, CANCELATOR, USER_DESC)
+    values (#{id,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
+      #{tele,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{adminFlag,jdbcType=BIT}, 
+      #{orgId,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{creator,jdbcType=VARCHAR}, 
+      null, null, #{description,jdbcType=VARCHAR})
+  </insert>
+
+  <select id="selectCountByExample" parameterType="com.uc.web.domain.system.example.UserDetailExample" resultType="java.lang.Integer">
+    select count(*) from v_user_detail
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  
+  <update id="updateDetailSelective" parameterType="com.uc.web.domain.system.UserDetail">
+    update user
+    <set>
+      <if test="password != null">
+        USER_PWD = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        USER_NAME = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="tele != null">
+        USER_TELE = #{tele,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        USER_EMAIL = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="adminFlag != null">
+        ADMIN_FLAG = #{adminFlag,jdbcType=BIT},
+      </if>
+      <if test="orgId != null">
+        USER_ORG = #{orgId,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        USER_CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="creator != null">
+        USER_CREATOR = #{creator,jdbcType=VARCHAR},
+      </if>
+      <if test="cancelTime != null">
+        CANCEL_TIME = #{cancelTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cancelator != null">
+        CANCELATOR = #{cancelator,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        USER_DESC = #{description,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where
+     USER_ID = #{id, jdbcType=VARCHAR}
+  </update>
+  <update id="updateDetail" parameterType="com.uc.web.domain.system.UserDetail">
+    update v_user_detail
+    set USER_PWD = #{password,jdbcType=VARCHAR},
+      USER_NAME = #{name,jdbcType=VARCHAR},
+      USER_TELE = #{tele,jdbcType=VARCHAR},
+      USER_EMAIL = #{email,jdbcType=VARCHAR},
+      ADMIN_FLAG = #{adminFlag,jdbcType=BIT},
+      USER_ORG = #{orgId,jdbcType=VARCHAR},
+      USER_CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      USER_CREATOR = #{creator,jdbcType=VARCHAR},
+      CANCEL_TIME = #{cancelTime,jdbcType=TIMESTAMP},
+      CANCELATOR = #{cancelator,jdbcType=VARCHAR},
+      USER_DESC = #{description,jdbcType=VARCHAR}
+    where
+      USER_ID = #{id, jdbcType=VARCHAR}  
+  </update>
+</mapper>
