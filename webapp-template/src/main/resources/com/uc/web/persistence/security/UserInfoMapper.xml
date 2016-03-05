@@ -10,7 +10,7 @@
     <result column="USER_VALID" jdbcType="BIT" property="valid" />
 	</resultMap>
 
-	<resultMap id="UserMenuResultMap" type="com.uc.web.domain.system.UserMenu">
+	<resultMap id="UserMenuResultMap" type="com.uc.web.forms.MenuItemImpl">
 		<result column="FUNC_URI" property="URI" jdbcType="VARCHAR" />
 		<result column="MENU_ID" property="id" jdbcType="VARCHAR" />
 		<result column="MENU_PARENT_ID" property="parentId"	jdbcType="VARCHAR" />

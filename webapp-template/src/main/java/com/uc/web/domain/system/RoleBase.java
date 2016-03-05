@@ -1,5 +1,7 @@
 package com.uc.web.domain.system;
 
+import java.util.List;
+
 public class RoleBase implements Role {
 	@Override
 	public String getId() {
@@ -33,9 +35,18 @@ public class RoleBase implements Role {
 	public void setValid(boolean valid) {
 		this.valid = valid;
 	}
+	@Override
+	public void setFunctions(List<? extends Function> functions) {
+		this.functions=functions;
+	}
+	@Override
+	public List<? extends Function> getFunctions(){
+		return functions;
+	}
 	private String roleId;
 	private String roleName;
 	private String description;
 	private boolean valid;
+	private List<? extends Function> functions;
 
 }

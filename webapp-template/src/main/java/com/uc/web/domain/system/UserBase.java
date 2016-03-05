@@ -13,11 +13,11 @@ public class UserBase implements User {
 	}
 	@Override
 	public String getName() {
-		return nickName;
+		return name;
 	}
 	@Override
 	public void setName(String nickName) {
-		this.nickName = nickName;
+		this.name = nickName;
 	}
 	@Override
 	public String getPassword() {
@@ -36,11 +36,11 @@ public class UserBase implements User {
 		this.description = description;
 	}
 	@Override
-	public List<Role> getRoles() {
+	public List<? extends Role> getRoles() {
 		return roles;
 	}
 	@Override
-	public void setRoles(List<Role> roles) {
+	public void setRoles(List<? extends Role> roles) {
 		this.roles = roles;
 	}
 	@Override
@@ -80,10 +80,10 @@ public class UserBase implements User {
 
 
 	private String userId;
-	private String nickName;
+	private String name;
 	private String password;
 	private String description;
 	private String orgId;
 	private boolean valid;
-	private List<Role> roles;	
+	private List<? extends Role> roles;	
 }

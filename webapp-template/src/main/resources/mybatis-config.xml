@@ -10,5 +10,6 @@
     </settings>
     <mappers>
       <mapper resource="com/uc/web/persistence/security/UserInfoMapper.xml"/>
+      <mapper resource="com/uc/web/persistence/system/UserDetailMapper.xml"/>
     </mappers>
 </configuration>

@@ -13,14 +13,14 @@ public interface AppService<QueryFormType extends QueryForm, DetailType extends 
 
 	DetailType selectById(String selectedId);
 
-	void insert(DetailType detail);
+	int insert(DetailType detail);
 
-	void update(DetailType detail);
+	int update(DetailType detail);
 
-	void cancelateById(DetailType detail);
+	int cancelateById(DetailType detail);
 
-	void deleteById(DetailType detail);
+	int deleteById(DetailType detail);
 
-	void activeById(DetailType detail);
+	int activeById(DetailType detail);
 
 }

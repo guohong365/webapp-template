@@ -4,9 +4,9 @@ import java.util.List;
 
 public interface User {
 
-	void setRoles(List<Role> roles);
+	void setRoles(List<? extends Role> roles);
 
-	List<Role> getRoles();
+	List<? extends Role> getRoles();
 
 	void setDescription(String description);
 

@@ -8,8 +8,27 @@
   <property name="sqlSessionFactory" ref="sqlSessionFactory" />
 </bean>
 
+<bean id="userDetailMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+  <property name="mapperInterface" value="com.uc.web.persistence.system.UserDetailMapper" />
+  <property name="sqlSessionFactory" ref="sqlSessionFactory" />
+</bean>
+
+<bean id="functionDetailMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+  <property name="mapperInterface" value="com.uc.web.persistence.system.FunctionDetailMapper" />
+  <property name="sqlSessionFactory" ref="sqlSessionFactory" />  
+</bean>
+
+
 <bean id="securityService" class="com.uc.web.service.impl.SecurityServiceImpl">
   <property name="userInfoMapper" ref="userInfoMapper" />
+</bean>
+
+<bean id="userService" class="com.uc.web.service.impl.UserServiceImpl">
+  <property name="detailMapper" ref="userDetailMapper" />
+</bean>
+
+<bean id="functionService" class="com.uc.web.service.impl.FunctionServiceImpl">
+  <property name="detailMapper" ref="functionDetailMapper" />
 </bean>
 
 <bean id="systemService" class="com.uc.web.service.impl.SystemServiceImpl">
