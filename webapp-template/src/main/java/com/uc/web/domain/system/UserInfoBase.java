@@ -33,17 +33,17 @@ public class UserInfoBase extends UserBase implements UserInfo {
 
 	@Override
 	public boolean isAccountNonExpired() {
-		return !isValid();
+		return isValid();
 	}
 
 	@Override
 	public boolean isAccountNonLocked() {
-		return !isValid();
+		return isValid();
 	}
 
 	@Override
 	public boolean isCredentialsNonExpired() {
-		return !isValid();
+		return isValid();
 	}
 
 	@Override

@@ -33,7 +33,7 @@ public class SecurityServiceTest extends TestBase {
 	
 	@Test
 	public void testSelectRoleResources(){
-		List<RoleResource> resources=service.selectRoleRresources();
+		List<? extends RoleResource> resources=service.selectRoleRresources();
 		for(RoleResource resource : resources){
 			logger.info("ROLE:" + resource.getRoleId() + " has resource:" + resource.getUriPattern());
 		}

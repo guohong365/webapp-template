@@ -36,7 +36,7 @@
   </sql>
 
   <sql id="UserBasicInfoColumns">
-    t.USER_ID, t.USER_PWD, t.USER_NAME, t.USER_DESC, t.USER_ORG
+    t.USER_ID, t.USER_PWD, t.USER_NAME, t.USER_DESC, t.USER_ORG, t.VALID
   </sql>
   
   <sql id="UseMenuColumns" >

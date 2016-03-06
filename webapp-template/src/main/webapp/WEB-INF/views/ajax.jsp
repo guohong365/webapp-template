@@ -1,7 +1,6 @@
+<%@page import="com.uc.web.SystemConfig"%>
 <%@page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@page import="com.uc.web.constant.*"%>
-<%@page import="com.uc.web.constant.fields.*"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,7 +10,7 @@
 <meta http-equiv="cache-control" content="no-cache">
 <meta http-equiv="expires" content="0">
 <meta charset="utf-8" />
-<title><%=SystemValueNames.SYSTEM_NAME%></title>
+<title><%=SystemConfig.getConfigString(SystemConfig.KEY_SYSTEM_NAME, SystemConfig.DEFAULT_SYSTEM_NAME)%></title>
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
 <link rel="stylesheet" href="<c:url value="/resources/css/uc.data.css" />" />
@@ -80,8 +79,8 @@
         <a href="#" class="navbar-brand">
           <small>
             <i class="fa fa-medkit bigger"></i>
-            <%=SystemValueNames.SYSTEM_NAME%><small>
-              Ver.<%=SystemValueNames.SYSTEM_VERSION%></small>
+            <%=SystemConfig.getConfigString(SystemConfig.KEY_SYSTEM_NAME, SystemConfig.DEFAULT_SYSTEM_NAME)%><small>
+              Ver.<%=SystemConfig.getConfigString(SystemConfig.KEY_SYSTEM_VERSION, SystemConfig.DEFAULT_SYSTEM_VERSION)%></small>
           </small>
         </a>
 
@@ -370,7 +369,7 @@
         <!-- #section:basics/footer -->
         <div class="footer-content">
           <span class="bigger-120">
-            <span class="blue bolder">云南省药物依赖防治研究所</span>
+            <span class="blue bolder"><%=SystemConfig.getConfigString(SystemConfig.KEY_COMPANY_NAME, SystemConfig.DEFAULT_COMPANY_NAME) %></span>
             &copy; 2016
           </span>
         </div>
@@ -461,8 +460,8 @@
 				type : 'POST',
 				url : '<c:url value="/changePwd" />',
 				data : {
-					<%=UserFields.PASSWORD %> : oldPwdMd5,
-					<%=UserFields.NEW_PASSWORD %> : newPwdMd5
+					"password" : oldPwdMd5,
+					"newPassword" : newPwdMd5
 				}
 			})
 			.done(function(data, status) {

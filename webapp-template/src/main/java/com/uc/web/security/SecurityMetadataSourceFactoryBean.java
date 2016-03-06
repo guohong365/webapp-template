@@ -11,8 +11,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.access.ConfigAttribute;
 import org.springframework.security.access.SecurityConfig;
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
-import org.springframework.security.web.util.matcher.RequestMatcher;
+import org.springframework.security.web.util.AntPathRequestMatcher;
+import org.springframework.security.web.util.RequestMatcher;
 
 import com.uc.web.domain.system.RoleResource;
 import com.uc.web.service.SecurityService;
@@ -35,10 +35,14 @@ public class SecurityMetadataSourceFactoryBean extends LinkedHashMap<RequestMatc
 	public void setSecurityService(SecurityService securityService) {
 		this.securityService = securityService;
 	}
+	
+	public SecurityMetadataSourceFactoryBean() {
+		logger.info("SecurityMetadataSourceFactoryBean created.......");
+	}
 
-	@PostConstruct
 	public void loadResourceDefine(){
-		List<RoleResource> list = securityService.selectRoleRresources();
+		logger.info("initial resource after construction.......");
+		List<? extends RoleResource> list = securityService.selectRoleRresources();
 		RequestMatcher matcher=null;
 		String pattern=null;
 		Collection<ConfigAttribute> configAttributes=null;

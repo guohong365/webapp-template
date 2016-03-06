@@ -11,7 +11,7 @@ public interface SecurityService {
 
 	UserInfo selectUserInfo(String userId);
 
-	List<RoleResource> selectRoleRresources();
+	List<? extends RoleResource> selectRoleRresources();
 
 	TreeItem<MenuItem> selectMenu(String userId);
 }

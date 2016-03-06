@@ -65,11 +65,12 @@
 												请输入用户名和密码
 											</h4>
 											<div class="space-6"></div>
-											<form id="loginForm" action="j_spring_security_check" method="post">
+                      <c:url value="/j_spring_security_check" var="loginURL"/>
+											<form id="loginForm" action="${loginURL}" method="post">
 												<fieldset>                          
 													<label class="block clearfix">
 														<span class="block input-icon input-icon-right">
-															<input type="text" class="form-control" placeholder="登录名" name="userId"/>
+															<input type="text" class="form-control" placeholder="登录名" name="username"/>
 															<i class="icon-user"></i>
 														</span>
 													</label>

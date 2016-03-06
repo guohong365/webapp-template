@@ -6,7 +6,7 @@
   <appender name="console" class="org.apache.log4j.ConsoleAppender">
     <param name="Target" value="System.out" />
     <layout class="org.apache.log4j.PatternLayout">
-      <param name="ConversionPattern" value="[haarp] %-5p: %c - %m%n" />
+      <param name="ConversionPattern" value="[webapp] %-5p: %c - %m%n" />
     </layout>
   </appender>
   <!-- 
@@ -25,56 +25,56 @@
   
   <!-- 3rdparty Loggers -->
   <logger name="org.springframework.core">
-    <level value="info" />
+    <level value="tarce" />
   </logger>
 
   <logger name="org.springframework.beans">
-    <level value="info" />
+    <level value="tarce" />
   </logger>
   
   <logger name="org.springframework.context">
-    <level value="info" />
+    <level value="tarce" />
   </logger>
 
   <logger name="org.springframework.web">
-    <level value="info" />
+    <level value="trace" />
   </logger>
   
   <logger name="org.springframework.security">
-    <level value="info" />
+    <level value="trace" />
   </logger>
   
   <logger name="com.ibatis">
-    <level value="info"></level>
+    <level value="tarce"></level>
   </logger>
   
   <logger name="com.ibatis.common.jdbc.SimpleDataSource">
-    <level value="info"></level>
+    <level value="tarce"></level>
   </logger>
   
   <logger name="com.ibatis.common.jdbc.SriptRunner">
-    <level value="info"></level>
+    <level value="tarce"></level>
   </logger>
   
   <logger name="com.ibatis.sqlmap.engine.impl.SqlMapClientDelegate">
-    <level value="info"></level>
+    <level value="tarce"></level>
   </logger>
   
   <logger name="java.sqlConnection">
-    <level value="info"></level>
+    <level value="tarce"></level>
   </logger>
   
   <logger name="java.sql.Statement">
-    <level value="info"></level>
+    <level value="tarce"></level>
   </logger>
   
   <logger name="java.sql.PreparedStatement">
-    <level value="info"></level>
+    <level value="tarce"></level>
   </logger>
 
   <!-- Root Logger -->
   <root>
-    <priority value="info"></priority>
+    <priority value="tarce"></priority>
     <appender-ref ref="console" />
   </root>
   

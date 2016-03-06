@@ -37,6 +37,7 @@ public class UserCenter extends ControllerSupport {
 		} else{
 			return "旧密码有误，修改失败！";
 		}
+		
 	}
 	
 	@RequestMapping(value="/login", method=RequestMethod.GET)
