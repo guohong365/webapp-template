@@ -17,7 +17,7 @@ public class PageCtrl implements IPageCtrl {
 		pageCtrl.setTotal(total);
 		pageCtrl.setCurrent(0);
 		pageCtrl.setOffset(0);
-		pageCtrl.setPageCount(total/pageCtrl.getPageSize()+(total%pageCtrl.getPageSize()==0?0:1));
+		pageCtrl.setPageCount(total/pageCtrl.getPageSize()+(total%pageCtrl.getPageSize()==0? 0:1));
 	}
 	
 	public PageCtrl(){
@@ -89,6 +89,7 @@ public class PageCtrl implements IPageCtrl {
 
 	@Override
 	public void setPageSize(int pageSize) {
+		this.pageSize=pageSize;
 	}
 
 	@Override

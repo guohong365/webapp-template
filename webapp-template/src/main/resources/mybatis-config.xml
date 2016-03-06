@@ -11,5 +11,8 @@
     <mappers>
       <mapper resource="com/uc/web/persistence/security/UserInfoMapper.xml"/>
       <mapper resource="com/uc/web/persistence/system/UserDetailMapper.xml"/>
+      <mapper resource="com/uc/web/persistence/system/RoleDetailMapper.xml"/>
+      <mapper resource="com/uc/web/persistence/system/FunctionDetailMapper.xml"/>
+      <mapper resource="com/uc/web/persistence/system/OrgnizationDetailMapper.xml"/>
     </mappers>
 </configuration>

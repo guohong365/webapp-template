@@ -25,10 +25,10 @@ public class UserServiceImpl extends AbstractAppServiceImpl<UserQueryForm, UserD
 			return true;
 		UserDetailExample.Criteria criteria=example.or();
 		if(!StringUtils.isEmpty(queryForm.getQueryUserId())){
-			criteria.andIdLike("%"+queryForm.getQueryUserId()+"%");			
+			criteria.andUserIdLike("%"+queryForm.getQueryUserId()+"%");			
 		}
 		if(!StringUtils.isEmpty(queryForm.getQueryUserName())){
-			criteria.andNameLike("%" + queryForm.getQueryUserName() + "%");
+			criteria.andUserNameLike("%" + queryForm.getQueryUserName() + "%");
 		}
 		if(!queryForm.isQueryAll()){
 			criteria.andValidEqualTo(true);
@@ -56,5 +56,10 @@ public class UserServiceImpl extends AbstractAppServiceImpl<UserQueryForm, UserD
 			getUserDetailMapper().insetUserRoles(detail.getId(), detail.getRoles());
 		}
 		return super.update(detail);
+	}
+	
+	@Override
+	public int deleteById(UserDetail detail) {
+		return 0;
 	}
 }

@@ -2,47 +2,47 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.uc.web.persistence.system.UserDetailMapper">
   <resultMap id="UserDetailResultMap" type="com.uc.web.domain.system.UserDetail">
-    <id column="USER_ID" jdbcType="VARCHAR" property="id" />
-    <result column="USER_PWD" jdbcType="VARCHAR" property="password" />
-    <result column="USER_NAME" jdbcType="VARCHAR" property="name" />
-    <result column="USER_TELE" jdbcType="VARCHAR" property="tele" />
-    <result column="USER_EMAIL" jdbcType="VARCHAR" property="email" />
-    <result column="ADMIN_FLAG" jdbcType="BIT" property="adminFlag" />
-    <result column="USER_ORG" jdbcType="VARCHAR" property="orgId" />
-    <result column="USER_CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
-    <result column="USER_CREATOR" jdbcType="VARCHAR" property="creator" />
-    <result column="CANCEL_TIME" jdbcType="TIMESTAMP" property="cancelTime" />
-    <result column="CANCELATOR" jdbcType="VARCHAR" property="cancelator" />
-    <result column="USER_DESC" jdbcType="VARCHAR" property="description" />
-    <result column="VALID" jdbcType="BIT" property="valid" />
-    <result column="CANCELATOR_NAME" jdbcType="VARCHAR" property="cancelatorName" />
-    <result column="CREATOR_NAME" jdbcType="VARCHAR" property="creatorName" />
-    <result column="ORG_NAME" jdbcType="VARCHAR" property="orgName" />
-    <result column="ORG_CITY" jdbcType="VARCHAR" property="orgCity" />
-    <result column="ORG_AREA" jdbcType="VARCHAR" property="orgArea" />
-    <result column="ORG_TYPE" jdbcType="VARCHAR" property="orgType" />
-    <result column="CITY_NAME" jdbcType="VARCHAR" property="cityName" />
-    <result column="AREA_NAME" jdbcType="VARCHAR" property="areaName" />
+    <result column="USER_ID" property="id" jdbcType="VARCHAR" />
+    <result column="USER_PWD" property="password" jdbcType="VARCHAR" />
+    <result column="USER_NAME" property="name" jdbcType="VARCHAR" />
+    <result column="USER_TELE" property="tele" jdbcType="VARCHAR" />
+    <result column="USER_EMAIL" property="email" jdbcType="VARCHAR" />
+    <result column="ADMIN_FLAG" property="adminFlag" jdbcType="BIT" />
+    <result column="USER_ORG" property="orgId" jdbcType="VARCHAR" />
+    <result column="USER_CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="USER_CREATOR" property="creator" jdbcType="VARCHAR" />
+    <result column="CANCEL_TIME" property="cancelTime" jdbcType="TIMESTAMP" />
+    <result column="CANCELATOR" property="cancelator" jdbcType="VARCHAR" />
+    <result column="USER_DESC" property="description" jdbcType="VARCHAR" />
+    <result column="VALID" property="valid" jdbcType="BIT" />
+    <result column="CANCELATOR_NAME" property="cancelatorName" jdbcType="VARCHAR" />
+    <result column="CREATOR_NAME" property="creatorName" jdbcType="VARCHAR" />
+    <result column="ORG_NAME" property="orgName" jdbcType="VARCHAR" />
+    <result column="ORG_CITY" property="orgCity" jdbcType="VARCHAR" />
+    <result column="ORG_AREA" property="orgArea" jdbcType="VARCHAR" />
+    <result column="ORG_TYPE" property="orgType" jdbcType="VARCHAR" />
+    <result column="CITY_NAME" property="cityName" jdbcType="VARCHAR" />
+    <result column="AREA_NAME" property="areaName" jdbcType="VARCHAR" />
   </resultMap>
-  <sql id="Example_Where_Clause">
-    <where>
-      <foreach collection="oredCriteria" item="criteria" separator="or">
-        <if test="criteria.valid">
-          <trim prefix="(" prefixOverrides="and" suffix=")">
-            <foreach collection="criteria.criteria" item="criterion">
-              <choose>
-                <when test="criterion.noValue">
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
                   and ${criterion.condition}
                 </when>
-                <when test="criterion.singleValue">
+                <when test="criterion.singleValue" >
                   and ${criterion.condition} #{criterion.value}
                 </when>
-                <when test="criterion.betweenValue">
+                <when test="criterion.betweenValue" >
                   and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
                 </when>
-                <when test="criterion.listValue">
+                <when test="criterion.listValue" >
                   and ${criterion.condition}
-                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
                     #{listItem}
                   </foreach>
                 </when>
@@ -53,25 +53,25 @@
       </foreach>
     </where>
   </sql>
-  <sql id="Update_By_Example_Where_Clause">
-    <where>
-      <foreach collection="example.oredCriteria" item="criteria" separator="or">
-        <if test="criteria.valid">
-          <trim prefix="(" prefixOverrides="and" suffix=")">
-            <foreach collection="criteria.criteria" item="criterion">
-              <choose>
-                <when test="criterion.noValue">
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
                   and ${criterion.condition}
                 </when>
-                <when test="criterion.singleValue">
+                <when test="criterion.singleValue" >
                   and ${criterion.condition} #{criterion.value}
                 </when>
-                <when test="criterion.betweenValue">
+                <when test="criterion.betweenValue" >
                   and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
                 </when>
-                <when test="criterion.listValue">
+                <when test="criterion.listValue" >
                   and ${criterion.condition}
-                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
                     #{listItem}
                   </foreach>
                 </when>
@@ -82,10 +82,10 @@
       </foreach>
     </where>
   </sql>
-  <sql id="UserDetailColumns">
-    USER_ID, USER_PWD, USER_NAME, USER_TELE, USER_EMAIL, ADMIN_FLAG, USER_ORG, USER_CREATE_TIME, USER_CREATOR, CANCEL_TIME, 
-    CANCELATOR, USER_DESC, VALID, CANCELATOR_NAME, CREATOR_NAME, ORG_NAME, ORG_CITY, 
-    ORG_AREA, ORG_TYPE, CITY_NAME, AREA_NAME
+  <sql id="UserDetailColumns" >
+    USER_ID, USER_PWD, USER_NAME, USER_TELE, USER_EMAIL, ADMIN_FLAG, USER_ORG, USER_CREATE_TIME, 
+    USER_CREATOR, CANCEL_TIME, CANCELATOR, USER_DESC, VALID, CANCELATOR_NAME, CREATOR_NAME, 
+    ORG_NAME, ORG_CITY, ORG_AREA, ORG_TYPE, CITY_NAME, AREA_NAME
   </sql>
   <select id="selectByExample" parameterType="map" resultMap="UserDetailResultMap">
     select
@@ -103,7 +103,14 @@
     limit ${offset}, ${count}
   </select>
   
-  <insert id=insetUserRoles parameterType="map">
+  <select id="selectById" parameterType="java.lang.String" resultMap="UserDetailResultMap">
+   select
+    <include refid="UserDetailColumns" />
+   from v_user_detail
+   where USER_ID = #{userId, jdbcType=VARCHAR}    
+  </select>
+  
+  <insert id="insetUserRoles" parameterType="map">
     delete from user_role where USER_ID = #{userId, jdbcType=VARCHAR};
     <if test="roles !=null">
     <foreach collection="roles" item="role">
@@ -124,7 +131,7 @@
   <insert id="insertDetail" parameterType="com.uc.web.domain.system.UserDetail">
     insert into user (USER_ID, USER_PWD, USER_NAME, 
       USER_TELE, USER_EMAIL, ADMIN_FLAG, 
-      USER_ORG_ID, USER_CREATE_TIME, USER_CREATOR, 
+      USER_ORG, USER_CREATE_TIME, USER_CREATOR, 
       CANCEL_TIME, CANCELATOR, USER_DESC)
     values (#{id,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
       #{tele,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{adminFlag,jdbcType=BIT}, 
@@ -180,7 +187,7 @@
      USER_ID = #{id, jdbcType=VARCHAR}
   </update>
   <update id="updateDetail" parameterType="com.uc.web.domain.system.UserDetail">
-    update v_user_detail
+    update user
     set USER_PWD = #{password,jdbcType=VARCHAR},
       USER_NAME = #{name,jdbcType=VARCHAR},
       USER_TELE = #{tele,jdbcType=VARCHAR},

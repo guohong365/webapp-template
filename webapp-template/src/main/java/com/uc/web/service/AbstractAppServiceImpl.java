@@ -39,6 +39,9 @@ public abstract class AbstractAppServiceImpl<QueryFormType extends QueryForm, De
 	public void select(WebListFormBase<QueryFormType, DetailType> webForm) {
 		QueryFormType queryForm=webForm.getQuery();
 		IPageCtrl pageCtrl=webForm.getPageCtrl();
+		if(pageCtrl.getPageSize()==0){
+			SystemConfig.getConfigInt(SystemConfig.KEY_LIST_PAGE_SIZE, SystemConfig.DEFAULT_LIST_PAGE_SIZE);
+		}
 		ExampleType example=newExample();
 		
 		if(!prepareExample(queryForm, example)){
@@ -71,7 +74,7 @@ public abstract class AbstractAppServiceImpl<QueryFormType extends QueryForm, De
 			return new ArrayList<>();
 		}
 		int count=detailMapper.selectCountByExample(example);
-		count = count > SystemConfig.getConfigInt("exportor.maxrow", DEFAULT_MAX_ROW) ? SystemConfig.getConfigInt("exportor.maxrow", DEFAULT_MAX_ROW) : count;
+		count = count > SystemConfig.getConfigInt(SystemConfig.KEY_EXPORT_MAX_ROW, SystemConfig.DEFAULT_EXPORT_MAX_ROW) ? SystemConfig.getConfigInt(SystemConfig.KEY_EXPORT_MAX_ROW, SystemConfig.DEFAULT_EXPORT_MAX_ROW) : count;
 		return detailMapper.selectByExample(example, 0, count);
 	}
 
@@ -102,7 +105,7 @@ public abstract class AbstractAppServiceImpl<QueryFormType extends QueryForm, De
 
 	@Override
 	public int activeById(DetailType detail) {
-		return detailMapper.updateDetailSelective(detail);
+		return detailMapper.updateDetail(detail);
 	}
 
 }

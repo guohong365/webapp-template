@@ -5,6 +5,18 @@ import java.util.Map;
 import com.uc.web.forms.QueryFormBase;
 
 public class UserQueryForm extends QueryFormBase {
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder		
+		.append("[UserQueryForm [用户ID=").append(getQueryUserId()).append("]")
+		.append("[用户名称=").append(getQueryUserName()).append("]")
+		.append("[用户机构代码=").append(getQueryUserOrgId()).append("]")
+		.append("[查询所有=").append(isQueryAll()).append("]")
+		.append(super.toString()).append("]");
+		return builder.toString();
+	}
+
 	private static final String ORDER_BY_COLUMN_NAME_USER_ID="用户ID";
 	private static final String ORDER_BY_COLUMN_NAME_USER_NAME="用户姓名";
 	private static final String ORDER_BY_COLUMN_NAME_USER_ORG_NAME="所属机构";

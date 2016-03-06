@@ -8,6 +8,11 @@ import java.util.Properties;
 
 public class SystemConfig {
 	
+	public static final String KEY_EXPORT_MAX_ROW = "export.max-row";
+	public static final String KEY_LIST_PAGE_SIZE = "list.page-size";
+	public static final int DEFAULT_LIST_PAGE_SIZE = 20;
+	public static final int DEFAULT_EXPORT_MAX_ROW = 10000;
+	
 	private static Properties properties;
 	public static Properties getProperties(){
 		synchronized (SystemConfig.class) {

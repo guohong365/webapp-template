@@ -29,9 +29,6 @@ public abstract class QueryFormBase implements QueryForm {
 		this.queryOrder = queryOrder;
 	}
 
-	/* (non-Javadoc)
-	 * @see com.uc.haarp.forms.QueryForm#getQueryOrderBy()
-	 */
 	@Override
 	public String getQueryOrderBy() {
 		return queryOrderBy;
