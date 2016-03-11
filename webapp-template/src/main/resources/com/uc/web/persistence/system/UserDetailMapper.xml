@@ -111,11 +111,11 @@
   </select>
   
   <insert id="insetUserRoles" parameterType="map">
-    delete from user_role where USER_ID = #{userId, jdbcType=VARCHAR};
+    delete from t_user_role where USER_ID = #{userId, jdbcType=VARCHAR};
     <if test="roles !=null">
     <foreach collection="roles" item="role">
       <if test="role.valid">
-        insert into (USER_ID, ROLE_ID) values (#{userId, jdbcType=VARCHAR}, #{role.id, jdbcType=VARCHAR});
+        insert into t_user_role (USER_ID, ROLE_ID) values (#{userId, jdbcType=VARCHAR}, #{role.id, jdbcType=VARCHAR});
       </if>  
     </foreach>
     </if>
@@ -129,7 +129,7 @@
   </select>
   
   <insert id="insertDetail" parameterType="com.uc.web.domain.system.UserDetail">
-    insert into user (USER_ID, USER_PWD, USER_NAME, 
+    insert into t_user (USER_ID, USER_PWD, USER_NAME, 
       USER_TELE, USER_EMAIL, ADMIN_FLAG, 
       USER_ORG, USER_CREATE_TIME, USER_CREATOR, 
       CANCEL_TIME, CANCELATOR, USER_DESC)
@@ -147,7 +147,7 @@
   </select>
   
   <update id="updateDetailSelective" parameterType="com.uc.web.domain.system.UserDetail">
-    update user
+    update t_user
     <set>
       <if test="password != null">
         USER_PWD = #{password,jdbcType=VARCHAR},
@@ -187,7 +187,7 @@
      USER_ID = #{id, jdbcType=VARCHAR}
   </update>
   <update id="updateDetail" parameterType="com.uc.web.domain.system.UserDetail">
-    update user
+    update t_user
     set USER_PWD = #{password,jdbcType=VARCHAR},
       USER_NAME = #{name,jdbcType=VARCHAR},
       USER_TELE = #{tele,jdbcType=VARCHAR},

@@ -18,8 +18,9 @@ public class RootController extends ControllerSupport {
 		if(userInfo!=null){
 			MenuFormattor formattor=new MenuFormattor();
 			String menus=formattor.format(userInfo.getMenu());
+			getLoggger().debug("user info:" + menus);
 			model.addAttribute("menus", menus);
-			model.addAttribute("userName", userInfo.getUsername());
+			model.addAttribute("userName", userInfo.getName());			
 			return "/ajax";
 		} 
 		return "redirect:/login";
@@ -27,7 +28,8 @@ public class RootController extends ControllerSupport {
 	
 	@RequestMapping(value="/welcome", method=RequestMethod.GET)
 	public String welcome(Model model){
-		getLoggger().warn("load WELCOM PAGE");
+		getLoggger().info("load WELCOM PAGE");
+		
 		return "/welcome";
 	}
 	

@@ -18,30 +18,28 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.uc.utils.exportor.ExportType;
+import com.uc.web.SpringContextHelper;
 import com.uc.web.forms.PageCtrl;
 import com.uc.web.forms.QueryForm;
 
 public abstract class ControllerProxyBase<QueryFormType extends QueryForm, DetailType extends Object> 
 	implements ControllerProxy<QueryFormType, DetailType>, GeneralController<QueryFormType, DetailType>{
 
-	@Override
 	@ModelAttribute(value=PARAM_NAME_MODEL_TITLE)
 	public String getModelTitle() {
-		return getControler().getModelTitle();
+		return getController().getTitle();
 	}
 	
 	@Override
 	@ModelAttribute(value=PARAM_NAME_BASE_URL)
 	public String getBaseUrl(){
-		return onGetBaseUrl();
+		return baseUrl;
 	}
-
-	protected abstract String onGetBaseUrl();
 
 	@Override
 	@RequestMapping(value=URI_PATH_LIST, method=RequestMethod.GET)
 	public String getListPage(Model model) {
-		return getControler().getListPage(model);
+		return getController().getListPage(model);
 	}
 
 	@Override
@@ -52,7 +50,7 @@ public abstract class ControllerProxyBase<QueryFormType extends QueryForm, Detai
 			@ModelAttribute(value=PARAM_NAME_PAGE_CTRL)
 			PageCtrl pageCtrl, 
 			Model model) {
-		return getControler().postTablePage(queryInput, pageCtrl, model);
+		return getController().postTablePage(queryInput, pageCtrl, model);
 	}	
 
 	@Override
@@ -61,7 +59,7 @@ public abstract class ControllerProxyBase<QueryFormType extends QueryForm, Detai
 			@ModelAttribute(value=PARAM_NAME_QUERY_INPUT)
 			QueryFormType queryForm, 
 			Model model) {
-		return getControler().postListPage(queryForm, model);
+		return getController().postListPage(queryForm, model);
 	}
 
 	@Override
@@ -73,7 +71,7 @@ public abstract class ControllerProxyBase<QueryFormType extends QueryForm, Detai
 			HttpServletResponse response,
 			@RequestParam(value=PARAM_NAME_EXPORT_TYPE, required=false, defaultValue=ExportType.TYPE_EXCEL)
 			String type) {
-		getControler().exportFile(queryForm, request, response, type);
+		getController().exportFile(queryForm, request, response, type);
 	}
 
 	@Override
@@ -84,7 +82,7 @@ public abstract class ControllerProxyBase<QueryFormType extends QueryForm, Detai
 			@RequestParam(value=PARAM_NAME_SELECTED_ID, required=false, defaultValue="")
 			String recordId, 
 			Model model) {
-		return getControler().getDetailPage(action, recordId, model);
+		return getController().getDetailPage(action, recordId, model);
 	}
 
 	@Override
@@ -95,7 +93,7 @@ public abstract class ControllerProxyBase<QueryFormType extends QueryForm, Detai
 			String action,
 			@ModelAttribute(value=PARAM_NAME_DETAIL)
 			DetailType detail) {
-		return getControler().postDetailPage(action, detail);
+		return getController().postDetailPage(action, detail);
 	}
 	
 	@InitBinder(PARAM_NAME_QUERY_INPUT)
@@ -113,4 +111,35 @@ public abstract class ControllerProxyBase<QueryFormType extends QueryForm, Detai
 		DateFormat dateFormat=new SimpleDateFormat("yyyy-MM-dd");
 		binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true) );		
 	}
+	
+	public AppController<QueryFormType, DetailType> getController(){
+		try{
+			AppController<QueryFormType, DetailType> appController=SpringContextHelper.getBean(getControllerBeanName());
+			return appController;
+		}catch(Exception e){
+			//TODO: to process null value
+			return null;
+		}
+	}
+	
+	private String controllerBeanName=getDefaultControllerBeanName();
+	
+	@Override
+	public	String getControllerBeanName(){
+		return controllerBeanName;
+	}
+	protected abstract String getDefaultControllerBeanName();
+
+	@Override
+	public void setControllerBeanName(String beanName){
+		controllerBeanName=beanName;
+	}
+	
+	private String baseUrl=getDefaultBaseUrl();
+	
+	public void setBaseUrl(String baseUrl){
+		this.baseUrl=baseUrl;
+	}
+
+	protected abstract String getDefaultBaseUrl();
 }

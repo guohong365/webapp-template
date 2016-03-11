@@ -59,6 +59,18 @@ public class UserServiceImpl extends AbstractAppServiceImpl<UserQueryForm, UserD
 	}
 	
 	@Override
+	public int cancelateById(UserDetail detail) {
+		return super.cancelateById(detail);
+	}
+	
+	@Override
+	public int activeById(UserDetail detail) {
+		detail.setCancelator(null);
+		detail.setCancelTime(null);
+		return super.update(detail);
+	}
+	
+	@Override
 	public int deleteById(UserDetail detail) {
 		return 0;
 	}

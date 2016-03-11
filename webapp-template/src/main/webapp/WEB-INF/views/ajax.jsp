@@ -1,4 +1,5 @@
-<%@page import="com.uc.web.SystemConfig"%>
+<%@page import="com.uc.web.config.ConfigMeta"%>
+<%@page import="com.uc.web.config.ConfigManager"%>
 <%@page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
@@ -10,7 +11,7 @@
 <meta http-equiv="cache-control" content="no-cache">
 <meta http-equiv="expires" content="0">
 <meta charset="utf-8" />
-<title><%=SystemConfig.getConfigString(SystemConfig.KEY_SYSTEM_NAME, SystemConfig.DEFAULT_SYSTEM_NAME)%></title>
+<title><%=ConfigManager.getApplicationConfig().getConfigString(ConfigMeta.KEY_SYSTEM_NAME, ConfigMeta.DEFAULT_SYSTEM_NAME)%></title>
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
 <link rel="stylesheet" href="<c:url value="/resources/css/uc.data.css" />" />
@@ -79,8 +80,8 @@
         <a href="#" class="navbar-brand">
           <small>
             <i class="fa fa-medkit bigger"></i>
-            <%=SystemConfig.getConfigString(SystemConfig.KEY_SYSTEM_NAME, SystemConfig.DEFAULT_SYSTEM_NAME)%><small>
-              Ver.<%=SystemConfig.getConfigString(SystemConfig.KEY_SYSTEM_VERSION, SystemConfig.DEFAULT_SYSTEM_VERSION)%></small>
+            <%=ConfigManager.getApplicationConfig().getConfigString(ConfigMeta.KEY_SYSTEM_NAME, ConfigMeta.DEFAULT_SYSTEM_NAME)%><small>
+              Ver.<%=ConfigManager.getApplicationConfig().getConfigString(ConfigMeta.KEY_SYSTEM_VERSION, ConfigMeta.DEFAULT_SYSTEM_VERSION)%></small>
           </small>
         </a>
 
@@ -369,7 +370,7 @@
         <!-- #section:basics/footer -->
         <div class="footer-content">
           <span class="bigger-120">
-            <span class="blue bolder"><%=SystemConfig.getConfigString(SystemConfig.KEY_COMPANY_NAME, SystemConfig.DEFAULT_COMPANY_NAME) %></span>
+            <span class="blue bolder"><%=ConfigManager.getApplicationConfig().getConfigString(ConfigMeta.KEY_COMPANY_NAME, ConfigMeta.DEFAULT_COMPANY_NAME) %></span>
             &copy; 2016
           </span>
         </div>

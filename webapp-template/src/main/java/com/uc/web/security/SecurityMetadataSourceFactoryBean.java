@@ -5,8 +5,6 @@ import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
 
-import javax.annotation.PostConstruct;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.access.ConfigAttribute;
@@ -19,9 +17,6 @@ import com.uc.web.service.SecurityService;
 
 public class SecurityMetadataSourceFactoryBean extends LinkedHashMap<RequestMatcher, Collection<ConfigAttribute>>  {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 7114425880761707681L;
 	
 	private static final Logger logger=LoggerFactory.getLogger(SecurityMetadataSourceFactoryBean.class);

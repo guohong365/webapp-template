@@ -76,7 +76,7 @@
       distinct
     </if>
     <include refid="RoleDetailColumns" />
-    from role
+    from t_role
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -89,7 +89,7 @@
   <select id="selectById" parameterType="java.lang.String" resultMap="RoleDetailMap">
     select 
     <include refid="RoleDetailColumns" />
-    from role
+    from t_role
     where ROLE_ID = #{roleId,jdbcType=VARCHAR}
   </select>
   
@@ -101,37 +101,37 @@
   </select>
   
   <select id="insertRoleFunctions" parameterType="map">
-    delete from role_func where ROLE_ID = #{roleId, jdbcType=VARCHAR};
+    delete from t_role_func where ROLE_ID = #{roleId, jdbcType=VARCHAR};
     <if test="funcs != null">
     <foreach collection="funcs" item="func">
       <if test="func.valid">
-      insert into role_func (ROLE_ID, FUNC_ID) values (#{roleId, jdbcType=VARCHAR}, #{func.id, jdbcType=VARCHAR});
+      insert into t_role_func (ROLE_ID, FUNC_ID) values (#{roleId, jdbcType=VARCHAR}, #{func.id, jdbcType=VARCHAR});
       </if>
     </foreach>
     </if>
   </select>
   
   <delete id="deleteDetail" parameterType="com.uc.web.domain.system.RoleDetail">
-    delete from role
+    delete from t_role
     where ROLE_ID = #{id,jdbcType=VARCHAR}
   </delete>
   
   
 
   <insert id="insertDetail" parameterType="com.uc.web.domain.system.RoleDetail">
-    insert into role (ROLE_ID, ROLE_NAME, ROLE_DESC, 
+    insert into t_role (ROLE_ID, ROLE_NAME, ROLE_DESC, 
       VALID, IS_INTERNAL)
     values (#{id,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, 
       #{valid,jdbcType=BIT}, #{isInternal,jdbcType=BIT})
   </insert>
   <select id="selectCountByExample" parameterType="com.uc.web.domain.system.example.RoleDetailExample" resultType="java.lang.Integer">
-    select count(*) from role
+    select count(*) from t_role
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateDetailSelective" parameterType="com.uc.web.domain.system.RoleDetail">
-    update role
+    update t_role
     <set>
       <if test="name != null">
         ROLE_NAME = #{name,jdbcType=VARCHAR},
@@ -149,7 +149,7 @@
     where ROLE_ID = #{id,jdbcType=VARCHAR}
   </update>
   <update id="updateDetail" parameterType="com.uc.web.domain.system.RoleDetail">
-    update role
+    update t_role
     set ROLE_NAME = #{name,jdbcType=VARCHAR},
       ROLE_DESC = #{description,jdbcType=VARCHAR},
       VALID = #{valid,jdbcType=BIT},

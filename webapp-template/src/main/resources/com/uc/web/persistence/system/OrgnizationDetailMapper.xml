@@ -99,11 +99,11 @@
   </select>
   
   <delete id="deleteDetail" parameterType="com.uc.web.domain.system.OrgnizationDetail">
-    delete from org where ORG_ID= #{id,jdbcType=VARCHAR}
+    delete from t_org where ORG_ID= #{id,jdbcType=VARCHAR}
   </delete>
   
   <insert id="insertDetail" parameterType="com.uc.web.domain.system.OrgnizationDetail">
-    insert into org (ORG_ID, ORG_PARENT_ID, ORG_NAME, 
+    insert into t_org (ORG_ID, ORG_PARENT_ID, ORG_NAME, 
       ORG_TYPE, ORG_AREA,  ORG_ADDR, ORG_TELE, ORG_LINKMAN, 
       ORG_DESC, ORG_DEL_FLAG, ORG_CITY, 
       CREATOR, CREATE_TIME)
@@ -166,7 +166,7 @@
   </update>
   
   <update id="updateDetail" parameterType="com.uc.web.domain.system.OrgnizationDetail">
-    update org
+    update t_org
     set
       ORG_PARENT_ID = #{parentId,jdbcType=VARCHAR},
       ORG_NAME = #{name,jdbcType=VARCHAR},

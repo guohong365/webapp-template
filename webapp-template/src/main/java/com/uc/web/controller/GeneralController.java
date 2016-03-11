@@ -25,7 +25,6 @@ public interface GeneralController<QueryFormType extends QueryForm, DetailType e
 	public static final String URI_PATH_DETAIL = "/detail";
 	public static final String URI_PATH_EXPORT = "/export";
 	
-	String getModelTitle();
 	String getListPage(Model model);
 	String postTablePage(QueryFormType queryInput, PageCtrl pageCtrl, Model model);
 	String postListPage(QueryFormType queryForm, Model model);

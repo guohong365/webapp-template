@@ -404,46 +404,6 @@ public class FunctionDetailExample implements Example {
 			return (Criteria) this;
 		}
 
-		public Criteria andEnableFlagGreaterThan(Boolean value) {
-			addCriterion("ENABLE_FLAG >", value, "enableFlag");
-			return (Criteria) this;
-		}
-
-		public Criteria andEnableFlagGreaterThanOrEqualTo(Boolean value) {
-			addCriterion("ENABLE_FLAG >=", value, "enableFlag");
-			return (Criteria) this;
-		}
-
-		public Criteria andEnableFlagLessThan(Boolean value) {
-			addCriterion("ENABLE_FLAG <", value, "enableFlag");
-			return (Criteria) this;
-		}
-
-		public Criteria andEnableFlagLessThanOrEqualTo(Boolean value) {
-			addCriterion("ENABLE_FLAG <=", value, "enableFlag");
-			return (Criteria) this;
-		}
-
-		public Criteria andEnableFlagIn(List<Boolean> values) {
-			addCriterion("ENABLE_FLAG in", values, "enableFlag");
-			return (Criteria) this;
-		}
-
-		public Criteria andEnableFlagNotIn(List<Boolean> values) {
-			addCriterion("ENABLE_FLAG not in", values, "enableFlag");
-			return (Criteria) this;
-		}
-
-		public Criteria andEnableFlagBetween(Boolean value1, Boolean value2) {
-			addCriterion("ENABLE_FLAG between", value1, value2, "enableFlag");
-			return (Criteria) this;
-		}
-
-		public Criteria andEnableFlagNotBetween(Boolean value1, Boolean value2) {
-			addCriterion("ENABLE_FLAG not between", value1, value2, "enableFlag");
-			return (Criteria) this;
-		}
-
 		public Criteria andFuncUriPatternIsNull() {
 			addCriterion("FUNC_URI_PATTERN is null");
 			return (Criteria) this;

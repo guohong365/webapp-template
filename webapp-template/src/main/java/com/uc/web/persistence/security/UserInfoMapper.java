@@ -11,10 +11,10 @@ public interface UserInfoMapper {
 
 	UserInfo selectById(String userId);
 
-	List<RoleResource> selectResources();
+	List<? extends RoleResource> selectResources();
 
-	List<MenuItem> selectMenuItems(String userId);
+	List<? extends MenuItem> selectMenuItems(String userId);
 	
-	List<Role> selectRolesByUser(String userId);
+	List<? extends Role> selectRolesByUser(String userId);
 
 }

@@ -40,7 +40,7 @@ public class UserServiceTest extends TestBase {
 		UserQueryForm queryForm =new UserQueryForm();
 		queryForm.setQueryUserId("admin");
 		logger.info(queryForm.toString());		
-		List<UserDetail> list = userService.selectForExport(queryForm);
+		List<? extends UserDetail> list = userService.selectForExport(queryForm);
 		logger.info("select list" + list);
 	}
 

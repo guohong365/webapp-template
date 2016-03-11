@@ -27,7 +27,7 @@ public class SecurityServiceTest extends TestBase {
 	
 	@Test
 	public void testSelectMenu(){
-	   TreeItem<MenuItem> menu=service.selectMenu("admin");
+	   TreeItem<? extends MenuItem> menu=service.selectMenu("admin");
 	   assertNotNull(menu);
 	}
 	

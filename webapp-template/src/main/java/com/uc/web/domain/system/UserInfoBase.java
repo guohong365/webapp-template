@@ -12,7 +12,7 @@ import com.uc.web.forms.MenuItem;
 public class UserInfoBase extends UserBase implements UserInfo {
 	private static final long serialVersionUID = 5375835512650609806L;
 	private Collection<GrantedAuthority> authorities;
-	private TreeItem<MenuItem> menuTree;
+	private TreeItem<? extends MenuItem> menuTree;
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		synchronized (UserInfoBase.class) {
@@ -52,12 +52,12 @@ public class UserInfoBase extends UserBase implements UserInfo {
 	}
 
 	@Override
-	public TreeItem<MenuItem> getMenu() {
+	public TreeItem<? extends MenuItem> getMenu() {
 		return menuTree;
 	}
 
 	@Override
-	public void setMenu(TreeItem<MenuItem> menu) {
+	public void setMenu(TreeItem<? extends MenuItem> menu) {
 		this.menuTree=menu;
 	}
 

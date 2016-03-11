@@ -3,7 +3,8 @@ package com.uc.web.service;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.uc.web.SystemConfig;
+import com.uc.web.config.ConfigManager;
+import com.uc.web.config.ConfigMeta;
 import com.uc.web.domain.Example;
 import com.uc.web.forms.IPageCtrl;
 import com.uc.web.forms.PageCtrl;
@@ -40,7 +41,9 @@ public abstract class AbstractAppServiceImpl<QueryFormType extends QueryForm, De
 		QueryFormType queryForm=webForm.getQuery();
 		IPageCtrl pageCtrl=webForm.getPageCtrl();
 		if(pageCtrl.getPageSize()==0){
-			SystemConfig.getConfigInt(SystemConfig.KEY_LIST_PAGE_SIZE, SystemConfig.DEFAULT_LIST_PAGE_SIZE);
+			pageCtrl.setPageSize(
+					ConfigManager.getApplicationConfig()
+					.getConfigInt(ConfigMeta.KEY_LIST_PAGE_SIZE, ConfigMeta.DEFAULT_LIST_PAGE_SIZE));
 		}
 		ExampleType example=newExample();
 		
@@ -63,18 +66,21 @@ public abstract class AbstractAppServiceImpl<QueryFormType extends QueryForm, De
 			example.setOrderByClause(queryForm.getOrderByClause());
 		}
 		
-		List<DetailType> list=detailMapper.selectByExample(example, pageCtrl.getOffset(), pageCtrl.getPageSize());
+		List<? extends DetailType> list=detailMapper.selectByExample(example, pageCtrl.getOffset(), pageCtrl.getPageSize());
 		webForm.setData(list);		
 	}
 
 	@Override
-	public List<DetailType> selectForExport(QueryFormType queryForm) {
+	public List<? extends DetailType> selectForExport(QueryFormType queryForm) {
 		ExampleType example=newExample();
 		if(!prepareExample(queryForm, example)){
 			return new ArrayList<>();
 		}
 		int count=detailMapper.selectCountByExample(example);
-		count = count > SystemConfig.getConfigInt(SystemConfig.KEY_EXPORT_MAX_ROW, SystemConfig.DEFAULT_EXPORT_MAX_ROW) ? SystemConfig.getConfigInt(SystemConfig.KEY_EXPORT_MAX_ROW, SystemConfig.DEFAULT_EXPORT_MAX_ROW) : count;
+		count = count > ConfigManager.getApplicationConfig()
+				.getConfigInt(ConfigMeta.KEY_EXPORT_MAX_ROW, ConfigMeta.DEFAULT_EXPORT_MAX_ROW) ? 
+						ConfigManager.getApplicationConfig()
+						.getConfigInt(ConfigMeta.KEY_EXPORT_MAX_ROW, ConfigMeta.DEFAULT_EXPORT_MAX_ROW) : count;
 		return detailMapper.selectByExample(example, 0, count);
 	}
 
@@ -105,7 +111,7 @@ public abstract class AbstractAppServiceImpl<QueryFormType extends QueryForm, De
 
 	@Override
 	public int activeById(DetailType detail) {
-		return detailMapper.updateDetail(detail);
+		return detailMapper.updateDetailSelective(detail);
 	}
 
 }

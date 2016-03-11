@@ -10,13 +10,8 @@ import com.uc.web.forms.QueryForm;
 
 public abstract class AbstractController<QueryFormType extends QueryForm, DetailType extends Object>
 	extends ControllerBase<QueryFormType, DetailType> 
-	implements GeneralController<QueryFormType, DetailType> {
+	implements AppController<QueryFormType, DetailType> {
 
-	@Override
-	public String getModelTitle(){
-		return onGetModelTitle();
-	};
-	
 	//----------------- get list -----------------------------------
 	@Override
 	public String getListPage(Model model){

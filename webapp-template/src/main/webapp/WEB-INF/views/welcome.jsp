@@ -1,4 +1,5 @@
-<%@page import="com.uc.web.SystemConfig"%>
+<%@page import="com.uc.web.config.ConfigMeta"%>
+<%@page import="com.uc.web.config.ConfigManager"%>
 <%@page language="java" pageEncoding="UTF-8" contentType="text/html; charset=UTF-8" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
@@ -11,7 +12,8 @@
 		<div class="alert alert-block alert-success">
 			<i class="icon-ok green"></i> 
 			<h1>欢迎使用 <strong class="green">
-			<%=SystemConfig.getConfigString(SystemConfig.KEY_SYSTEM_NAME, SystemConfig.DEFAULT_SYSTEM_NAME) %> (<%=SystemConfig.getConfigString(SystemConfig.KEY_SYSTEM_VERSION, SystemConfig.DEFAULT_SYSTEM_VERSION) %>)
+			<%=ConfigManager.getApplicationConfig().getConfigString(ConfigMeta.KEY_SYSTEM_NAME, ConfigMeta.DEFAULT_SYSTEM_NAME) %>
+      (<%=ConfigManager.getApplicationConfig().getConfigString(ConfigMeta.KEY_SYSTEM_VERSION, ConfigMeta.DEFAULT_SYSTEM_VERSION) %>)
 			</strong>。</h1>
 		</div>
     <div class="row">

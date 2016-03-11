@@ -27,19 +27,21 @@ public class SecurityServiceImpl implements SecurityService {
 	@Override
 	public UserInfo selectUserInfo(String userId) {	
 		UserInfoBase userInfo=(UserInfoBase) getUserInfoMapper().selectById(userId);
-		List<Role> roles=getUserInfoMapper().selectRolesByUser(userId);
+		List<? extends Role> roles=getUserInfoMapper().selectRolesByUser(userId);
+		TreeItem<? extends MenuItem> menu=selectMenu(userId);
 		userInfo.setRoles(roles);
+		userInfo.setMenu(menu);
 		return userInfo;
 	}
 
 	@Override
-	public List<RoleResource> selectRoleRresources() {
+	public List<? extends RoleResource> selectRoleRresources() {
 		return getUserInfoMapper().selectResources();
 	}
 
 	@Override
-	public TreeItem<MenuItem> selectMenu(String userId) {
-		List<MenuItem> items=getUserInfoMapper().selectMenuItems(userId);
+	public TreeItem<? extends MenuItem> selectMenu(String userId) {
+		List<? extends MenuItem> items=getUserInfoMapper().selectMenuItems(userId);
 		MenuTree root=new MenuTree(null);
 		for(MenuItem menuItem:items){
 			TreeItem<MenuItem> item=new TreeItem<MenuItem>(menuItem);

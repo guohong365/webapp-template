@@ -76,7 +76,7 @@
       distinct
     </if>
     <include refid="FunctionDetailColumns" />
-    from function
+    from t_function
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -89,17 +89,17 @@
   <select id="selectById" parameterType="java.lang.String" resultMap="FunctionDetailMap">
     select 
     <include refid="FunctionDetailColumns" />
-    from function
+    from t_function
     where FUNC_ID = #{funcId,jdbcType=VARCHAR}
   </select>
   
   <delete id="deleteDetail" parameterType="com.uc.web.domain.system.FunctionDetail">
-    delete from function
+    delete from t_function
     where FUNC_ID = #{funcId,jdbcType=VARCHAR}
   </delete>
   
   <insert id="insertDetail" parameterType="com.uc.web.domain.system.FunctionDetail">
-    insert into function (FUNC_ID, FUNC_NAME, FUNC_URI, 
+    insert into t_function (FUNC_ID, FUNC_NAME, FUNC_URI, 
       FUNC_DESC, ENABLE_FLAG, FUNC_URI_PATTERN
       )
     values (#{funcId,jdbcType=VARCHAR}, #{funcName,jdbcType=VARCHAR}, #{funcUri,jdbcType=VARCHAR}, 
@@ -107,14 +107,14 @@
       )
   </insert>
   <select id="selectCountByExample" parameterType="com.uc.web.domain.system.example.FunctionDetailExample" resultType="java.lang.Integer">
-    select count(*) from function
+    select count(*) from t_function
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   
   <update id="updateDetailSelective" parameterType="com.uc.web.domain.system.FunctionDetail">
-    update function
+    update t_function
     <set>
       <if test="funcName != null">
         FUNC_NAME = #{funcName,jdbcType=VARCHAR},
@@ -136,7 +136,7 @@
   </update>
 
   <update id="updateDetail" parameterType="com.uc.web.domain.system.FunctionDetail">
-    update function
+    update t_function
     set FUNC_NAME = #{funcName,jdbcType=VARCHAR},
       FUNC_URI = #{funcUri,jdbcType=VARCHAR},
       FUNC_DESC = #{funcDesc,jdbcType=VARCHAR},

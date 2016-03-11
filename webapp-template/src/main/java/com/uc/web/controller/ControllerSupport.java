@@ -19,6 +19,7 @@ public class ControllerSupport extends LoggerSupportorImpl {
 	public void setSystemService(SystemService systemService) {
 		this.systemService = systemService;
 	}
+	
 	protected SystemService getSystemService() {
 		return systemService;
 	}

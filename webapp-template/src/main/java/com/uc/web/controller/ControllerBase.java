@@ -19,7 +19,7 @@ import com.uc.web.forms.QueryForm;
 import com.uc.web.forms.WebListFormBase;
 import com.uc.web.service.AppService;
 
-public abstract class ControllerBase<QueryFormType extends QueryForm, DetailType extends Object> extends ControllerSupport {
+public abstract class ControllerBase<QueryFormType extends QueryForm, DetailType extends Object> extends ControllerSupport implements ControllerInfo{
 
 	protected static final String PAGE_LIST = "/list";
 	protected static final String PAGE_TABLE = "/table";
@@ -31,47 +31,76 @@ public abstract class ControllerBase<QueryFormType extends QueryForm, DetailType
 	protected static final String PAGE_DISABLE = "/disable";
 	protected static final String PAGE_REACTIVE = "/reactive";
 	
-	protected abstract String onGetPageBasePath();
-
+	protected abstract ControllerInfo getDefaultControlerInto();
+	
+	private ControllerInfo controllerInfo;
+	
+	public void setControllerInfo(ControllerInfo controllerInfo) {
+		this.controllerInfo = controllerInfo;
+	}
+	
+	public ControllerBase() {
+		controllerInfo=getDefaultControlerInto();
+	}
+	
+	protected ControllerInfo getControllerInfo() {
+		return controllerInfo;
+	}
+	@Override
+	public String getBasePath() {
+		return getControllerInfo().getBasePath();
+	}
+	
+	@Override
+	public String getEntityName() {
+		return getControllerInfo().getEntityName();
+	}
+	
+	@Override
+	public String getTitle() {
+		return getControllerInfo().getTitle();
+	}
+	
 	protected String getListPageName() {
-		return onGetPageBasePath() + PAGE_LIST;
+		return getBasePath() + PAGE_LIST;
 	}
 
 	protected String getTablePageName() {
-		return onGetPageBasePath() + PAGE_TABLE;
+		return getBasePath() + PAGE_TABLE;
 	}
 
 	protected String getViewPageName() {
-		return onGetPageBasePath() + PAGE_VIEW;
+		return getBasePath() + PAGE_VIEW;
 	}
 
 	protected String getModifyPageName() {
-		return onGetPageBasePath() + PAGE_MODIFY;
+		return getBasePath() + PAGE_MODIFY;
 	}
 
 	protected String getDeletePageName() {
-		return onGetPageBasePath() + PAGE_DELETE;
+		return getBasePath() + PAGE_DELETE;
 	}
 
 	protected String getNewPageName() {
-		return onGetPageBasePath() + PAGE_NEW;
+		return getBasePath() + PAGE_NEW;
 	}
-
-	protected abstract String onGetModelTitle();
-
-	protected String getEntityName(){
-		return onGetEntityName();
-	}
-
-	protected abstract String onGetEntityName();
 	
-	protected abstract AppService<QueryFormType, DetailType> getAppService();
+	AppService<QueryFormType, DetailType> appService;
+
+	protected AppService<QueryFormType, DetailType> getAppService(){
+		return appService;
+	};
+	
+	public void setAppService(AppService<QueryFormType, DetailType> appService) {
+		this.appService = appService;
+	}
 
 	private void commonSetQueryForm(UserInfo user, QueryFormType queryForm) {
 		queryForm.setQueryUser(user);
 		queryForm.addLimits(onGetUserQueryLimits(user));
 	}
 
+	//TODO: to create instance from Parameterized Type
 	protected abstract QueryFormType onCreateNewQueryForm();
 
 	protected Map<String,Object> onGetUserQueryLimits(UserInfo user) {
@@ -151,7 +180,7 @@ public abstract class ControllerBase<QueryFormType extends QueryForm, DetailType
 		return "";
 	}
 
-	protected Exportor onGetExportor(QueryFormType queryForm, List<DetailType> data, String type) {
+	protected Exportor onGetExportor(QueryFormType queryForm, List<? extends DetailType> data, String type) {
 		return null;
 	}
 
@@ -159,14 +188,14 @@ public abstract class ControllerBase<QueryFormType extends QueryForm, DetailType
 		commonSetQueryForm(user, queryForm);
 	}
 
-	protected void onAferExportListSelected(QueryFormType queryForm, List<DetailType> details) {		
+	protected void onAferExportListSelected(QueryFormType queryForm, List<? extends DetailType> details) {		
 	}
 
 	protected void onExport(QueryFormType queryForm, HttpServletRequest request, HttpServletResponse response, String type) {
 		UserInfo user=getUserInfo();		
 		
 		onBeforeSelectExportList(user, queryForm);		
-		List<DetailType> data=getAppService().selectForExport(queryForm);
+		List<? extends DetailType> data=getAppService().selectForExport(queryForm);
 		
 		onAferExportListSelected(queryForm, data);
 		

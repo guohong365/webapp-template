@@ -1,5 +1,7 @@
 package com.uc.web.service.impl;
 
+import org.springframework.util.StringUtils;
+
 import com.uc.web.domain.system.RoleDetail;
 import com.uc.web.domain.system.example.RoleDetailExample;
 import com.uc.web.forms.system.RoleQueryForm;
@@ -9,7 +11,7 @@ import com.uc.web.service.RoleService;
 
 public class RoleServiceImpl extends AbstractAppServiceImpl<RoleQueryForm, RoleDetail, RoleDetailExample> implements RoleService {
 	
-	RoleDetailMapper getRoleDetailMapper(){
+	protected RoleDetailMapper getRoleDetailMapper(){
 		if(getDetailMapper() instanceof RoleDetailMapper){
 			return (RoleDetailMapper) getDetailMapper();
 		}
@@ -18,8 +20,17 @@ public class RoleServiceImpl extends AbstractAppServiceImpl<RoleQueryForm, RoleD
 
 	@Override
 	protected boolean prepareExample(RoleQueryForm queryForm, RoleDetailExample example) {
-		// TODO Auto-generated method stub
-		return false;
+		RoleDetailExample.Criteria criteria= example.or();
+		if(!StringUtils.isEmpty(queryForm.getQueryRoleId())){
+			criteria.andRoleIdLike("%"+queryForm.getQueryRoleId()+"%");
+		}
+		if(!StringUtils.isEmpty(queryForm.getQueryRoleName())){
+			criteria.andRoleNameLike("%"+queryForm.getQueryRoleName()+"%");
+		}
+		if(!queryForm.isAll()){
+			criteria.andValidEqualTo(true);
+		}
+		return true;
 	}
 
 	@Override
@@ -50,6 +61,18 @@ public class RoleServiceImpl extends AbstractAppServiceImpl<RoleQueryForm, RoleD
 			getRoleDetailMapper().insertRoleFunctions(detail.getId(), detail.getFunctions());
 		}		
 		return super.update(detail);
+	}
+	
+	@Override
+	public int cancelateById(RoleDetail detail) {
+		detail.setValid(false);
+		return super.cancelateById(detail);
+	}
+	
+	@Override
+	public int activeById(RoleDetail detail) {
+		detail.setValid(true);
+		return super.activeById(detail);
 	}
 
 }

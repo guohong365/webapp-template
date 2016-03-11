@@ -1,4 +1,4 @@
-package com.uc.web;
+package com.uc.web.config;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -6,28 +6,23 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Properties;
 
-public class SystemConfig {
+public class DefaultApplicationConfig implements ApplicationConfig {
 	
-	public static final String KEY_EXPORT_MAX_ROW = "export.max-row";
-	public static final String KEY_LIST_PAGE_SIZE = "list.page-size";
-	public static final String KEY_SYSTEM_NAME="system.name";
-	public static final String KEY_SYSTEM_VERSION="system.version";
-	public static final String KEY_COMPANY_NAME="system.company";
-	public static final int DEFAULT_LIST_PAGE_SIZE = 20;
-	public static final int DEFAULT_EXPORT_MAX_ROW = 10000;
-	public static final String DEFAULT_SYSTEM_NAME="webapp";
-	public static final String DEFAULT_SYSTEM_VERSION="1.0";
-	public static final String DEFAULT_COMPANY_NAME="云南优云科技有限公司";
-	private static Properties properties;
-	public static Properties getProperties(){
-		synchronized (SystemConfig.class) {
+
+	private Properties properties;
+	
+	@Override
+	public Properties getProperties(){
+		synchronized (getClass()) {
 			if(properties==null){
 				properties= new Properties();
 			}
 		}
 		return properties;
 	}
-	public static boolean load(String configFileName){
+
+	@Override
+	public boolean load(String configFileName){
 		FileInputStream inStream;
 		try {
 			inStream = new FileInputStream(configFileName);
@@ -43,7 +38,8 @@ public class SystemConfig {
 		return true;
 	}
 	
-	public static int getConfigInt(String key, int defualtValue) {
+	@Override
+	public int getConfigInt(String key, int defualtValue) {
 		String defaultValueStr="" + defualtValue;
 		String value=getProperties().getProperty(key, defaultValueStr);
 		int intValue=defualtValue;
@@ -56,11 +52,13 @@ public class SystemConfig {
 		return intValue;
 	}
 	
-	public static String getConfigString(String key, String defaultValue){
+	@Override
+	public String getConfigString(String key, String defaultValue){
 		return getProperties().getProperty(key, defaultValue);
 	}
 	
-	public static boolean getConfigBool(String key, boolean defaultValue){
+	@Override
+	public boolean getConfigBool(String key, boolean defaultValue){
 		String defaultValueStr="" + defaultValue;
 		String valueStr=getProperties().getProperty(key, defaultValueStr);
 		if(defaultValue){
@@ -76,7 +74,8 @@ public class SystemConfig {
 		}
 	}
 	
-	public static double getConfigDouble(String key, double defaultValue){
+	@Override
+	public double getConfigDouble(String key, double defaultValue){
 		String defaultValueStr="" + defaultValue;
 		String valueStr=getProperties().getProperty(key, defaultValueStr);
 		double value=defaultValue;
@@ -88,7 +87,8 @@ public class SystemConfig {
 		return value;
 	}
 	
-	public static char getConfigChar(String key, char defaultValue){
+	@Override
+	public char getConfigChar(String key, char defaultValue){
 		StringBuilder builder=new StringBuilder();
 		builder.append(defaultValue);
 		String valueStr=getProperties().getProperty(key, builder.toString());

@@ -20,6 +20,20 @@ public class FunctionBase implements Function {
 
 
 	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("[FunctionBase")
+		.append("[ID=").append(getId()).append("]")
+		.append("[功能名称=").append(getName()).append("]")
+		.append("[URI=").append(getUri()).append("]")
+		.append("[URI路径=").append(getUriPattern()).append("]")
+		.append("[描述=").append(getDescription()).append("]")
+		.append("[有效=").append(isValid()?"是":"否").append("]")
+		.append("]");
+		return builder.toString();
+	}
+
+	@Override
 	public String getName() {
 		return funcName;
 	}

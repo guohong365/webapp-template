@@ -21,6 +21,6 @@ public abstract class TestBase {
 	protected Logger logger;
 	
 	public TestBase() {
-		logger=LoggerFactory.getLogger(this.getClass());
+		logger=LoggerFactory.getLogger(this.getClass());		
 	}
 }

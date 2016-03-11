@@ -13,20 +13,25 @@
 		</param-value>
 	</context-param>
 	
-	<context-param>
-	 <param-name>webappConfigLocation</param-name>
-	 <param-value>/WEB-INF/webapp.properties</param-value>	 
-	</context-param>
-	
-	<listener>
-	 <listener-class>com.uc.web.SystemConfigLoaderListener</listener-class>
-	</listener>
-	
 	<!-- Creates the Spring Container shared by all Servlets and Filters -->
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
+
+  <context-param>
+   <param-name>webappConfigLocation</param-name>
+   <param-value>/WEB-INF/webapp.properties</param-value>  
+  </context-param>
+  <context-param>
+    <param-name>webappConfigClass</param-name>
+    <param-value>com.uc.web.config.DefaultApplicationConfig</param-value>
+  </context-param>
+
 	
+	 <listener>
+   <listener-class>com.uc.web.config.ApplicationConfigLoaderListener</listener-class>
+  </listener>
+  
 	
   <filter>
     <filter-name>springSecurityFilterChain</filter-name>

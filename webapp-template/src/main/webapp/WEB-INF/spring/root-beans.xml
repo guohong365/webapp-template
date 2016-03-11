@@ -18,6 +18,10 @@
   <property name="sqlSessionFactory" ref="sqlSessionFactory" />  
 </bean>
 
+<bean id="roleDetailMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+  <property name="mapperInterface" value="com.uc.web.persistence.system.RoleDetailMapper" />
+  <property name="sqlSessionFactory" ref="sqlSessionFactory" />
+</bean>
 
 <bean id="securityService" class="com.uc.web.service.impl.SecurityServiceImpl">
   <property name="userInfoMapper" ref="userInfoMapper" />
@@ -31,7 +35,40 @@
   <property name="detailMapper" ref="functionDetailMapper" />
 </bean>
 
+<bean id="roleService" class="com.uc.web.service.impl.RoleServiceImpl" >
+  <property name="detailMapper" ref="roleDetailMapper" />
+</bean>
+
 <bean id="systemService" class="com.uc.web.service.impl.SystemServiceImpl">
+</bean>
+
+<!-- controller implement -->
+<bean id="controllerSupport" class="com.uc.web.controller.ControllerSupport">
+  <property name="systemService" ref="systemService" />
+</bean>
+
+<bean id="userControllerInfo" class="com.uc.web.controller.ControllerInfoBase">
+  <constructor-arg index="0" value="/system/user" />
+  <constructor-arg index="1" value="用户" />
+  <constructor-arg index="2" value="用户管理" />
+</bean>
+<bean id="userControllerImpl" class="com.uc.web.controller.system.impl.UserControllerImpl" parent="controllerSupport">
+  <property name="appService" ref="userService" />
+  <property name="controllerInfo" ref="userControllerInfo" />
+</bean>
+
+<bean id="funcControllerInfo" class="com.uc.web.controller.ControllerInfoBase">
+  <constructor-arg index="0" value="/system/fun" />
+  <constructor-arg index="1" value="功能" />
+  <constructor-arg index="2" value="功能管理" />
+</bean>
+<bean id="functionControllerImpl" class="com.uc.web.controller.system.impl.FunctionControllerImpl" parent="controllerSupport">
+  <property name="appService" ref="functionService" />
+  <property name="controllerInfo" ref="funcControllerInfo" />
+</bean>
+
+<bean id="roleControllerImpl" class="com.uc.web.controller.system.impl.RoleControllerImpl" parent="controllerSupport">
+  <property name="appService" ref="roleService" />
 </bean>
 
 </beans>

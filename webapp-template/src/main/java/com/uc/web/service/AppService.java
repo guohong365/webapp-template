@@ -9,7 +9,7 @@ public interface AppService<QueryFormType extends QueryForm, DetailType extends 
 
 	void select(WebListFormBase<QueryFormType, DetailType> webForm);
 
-	List<DetailType> selectForExport(QueryFormType queryForm);
+	List<? extends DetailType> selectForExport(QueryFormType queryForm);
 
 	DetailType selectById(String selectedId);
 

@@ -1,5 +1,7 @@
 package com.uc.web.service.impl;
 
+import org.springframework.util.StringUtils;
+
 import com.uc.web.domain.system.OrgnizationDetail;
 import com.uc.web.domain.system.example.OrgnizationDetailExample;
 import com.uc.web.forms.system.OrgnizationQueryForm;
@@ -10,14 +12,25 @@ public class OrgnizationServiceImpl extends AbstractAppServiceImpl<OrgnizationQu
 
 	@Override
 	protected boolean prepareExample(OrgnizationQueryForm queryForm, OrgnizationDetailExample example) {
-		// TODO Auto-generated method stub
+		OrgnizationDetailExample.Criteria criteria=example.or();
+		if(!StringUtils.isEmpty(queryForm.getQueryOrgId())){
+			criteria.andOrgIdLike("%"+queryForm.getQueryOrgId()+"%");
+		}
+		if(!StringUtils.isEmpty(queryForm.getQueryOrgName())){
+			criteria.andOrgNameLike("%"+queryForm.getQueryOrgName()+"%");
+		}
+		if(!StringUtils.isEmpty(queryForm.getQueryOrgParentName())){
+			criteria.andParentOrgNameLike("%"+queryForm.getQueryOrgParentName()+"%");			
+		}
+		if(!queryForm.isAll()){
+			criteria.andOrgDelFlagEqualTo(false);
+		}
 		return false;
 	}
 
 	@Override
 	protected OrgnizationDetailExample newExample() {
-		// TODO Auto-generated method stub
-		return null;
+		return new OrgnizationDetailExample();
 	}
 
 }
