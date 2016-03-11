@@ -16,6 +16,18 @@ public class RoleBase implements Role {
 		return roleName;
 	}
 	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("[RoleBase ")
+		.append("[角色ID=").append(getId()).append("]")
+		.append("[角色名称=").append(getName()).append("]")
+		.append("[角色描述=").append(getDescription()).append("]")
+		.append("[有效=").append(isValid()?"是":"否").append("]")
+		.append("[功能权限=").append(getFunctions()).append("]")
+		.append("]");
+		return builder.toString();
+	}
+	@Override
 	public void setName(String roleName) {
 		this.roleName = roleName;
 	}

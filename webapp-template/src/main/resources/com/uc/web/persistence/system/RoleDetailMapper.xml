@@ -100,7 +100,7 @@
     where ROLE_ID = #{roleId, jdbcType=VARCHAR}
   </select>
   
-  <select id="insertRoleFunctions" parameterType="map">
+  <insert id="insertRoleFunctions" parameterType="map">
     delete from t_role_func where ROLE_ID = #{roleId, jdbcType=VARCHAR};
     <if test="funcs != null">
     <foreach collection="funcs" item="func">
@@ -109,7 +109,7 @@
       </if>
     </foreach>
     </if>
-  </select>
+  </insert>
   
   <delete id="deleteDetail" parameterType="com.uc.web.domain.system.RoleDetail">
     delete from t_role

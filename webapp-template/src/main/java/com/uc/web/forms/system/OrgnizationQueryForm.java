@@ -56,6 +56,7 @@ public class OrgnizationQueryForm extends QueryFormBase {
 		map.put(ORDERBY_COLUMN_NAME_ORG_NAME, "ORG_NAME");
 		map.put(ORDERBY_COLUMN_NAME_ORG_PARENT_NAME, "PARENT_ORG_NAME");
 		map.put(ORDERBY_COLUMN_NAME_ORG_VALID, "ORG_DEL_FLAG");
+		map.put(ORDERBY_COLUMN_NAME_ORG_DESC, "ORG_DESC");
 	}
 
 

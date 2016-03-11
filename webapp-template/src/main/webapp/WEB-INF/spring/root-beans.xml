@@ -23,6 +23,11 @@
   <property name="sqlSessionFactory" ref="sqlSessionFactory" />
 </bean>
 
+<bean id="orgnizationDetailMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+  <property name="mapperInterface" value="com.uc.web.persistence.system.OrgnizationDetailMapper" />
+  <property name="sqlSessionFactory" ref="sqlSessionFactory" />
+</bean>
+
 <bean id="securityService" class="com.uc.web.service.impl.SecurityServiceImpl">
   <property name="userInfoMapper" ref="userInfoMapper" />
 </bean>
@@ -37,6 +42,10 @@
 
 <bean id="roleService" class="com.uc.web.service.impl.RoleServiceImpl" >
   <property name="detailMapper" ref="roleDetailMapper" />
+</bean>
+
+<bean id="orgnizationService" class="com.uc.web.service.impl.OrgnizationServiceImpl">
+  <property name="detailMapper" ref="orgnizationDetailMapper" />
 </bean>
 
 <bean id="systemService" class="com.uc.web.service.impl.SystemServiceImpl">
@@ -69,6 +78,10 @@
 
 <bean id="roleControllerImpl" class="com.uc.web.controller.system.impl.RoleControllerImpl" parent="controllerSupport">
   <property name="appService" ref="roleService" />
+</bean>
+
+<bean id="orgnizationControllerImpl" class="com.uc.web.controller.system.impl.OrnizationControllerImpl" parent="controllerSupport">
+  <property name="appService" ref="orgnizationService" />
 </bean>
 
 </beans>
