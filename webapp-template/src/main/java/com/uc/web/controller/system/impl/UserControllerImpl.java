@@ -11,8 +11,8 @@ public class UserControllerImpl extends AbstractController<UserQueryForm, UserDe
 	private static final String DEFAULT_MODEL_TITLE="用户管理";
 	private static final String DEFAULT_ENTITY_NAME="用户";
 	
-	private ControllerInfo defaultControlInfo=
-			new ControllerInfoBase(DEFAULT_BASE_PATH, DEFAULT_ENTITY_NAME, DEFAULT_MODEL_TITLE);
+	private ControllerInfo defaultControlInfo;
+			
 	
 	@Override
 	protected UserQueryForm onCreateNewQueryForm() {
@@ -26,6 +26,9 @@ public class UserControllerImpl extends AbstractController<UserQueryForm, UserDe
 
 	@Override
 	protected ControllerInfo getDefaultControlerInto() {
+		if(defaultControlInfo==null){
+			defaultControlInfo=new ControllerInfoBase(DEFAULT_BASE_PATH, DEFAULT_ENTITY_NAME, DEFAULT_MODEL_TITLE);
+		}
 		return defaultControlInfo;
 	}
 

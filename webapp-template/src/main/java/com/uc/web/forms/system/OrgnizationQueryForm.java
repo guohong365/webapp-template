@@ -11,6 +11,7 @@ public class OrgnizationQueryForm extends QueryFormBase {
 	private static final String ORDERBY_COLUMN_NAME_ORG_DESC="机构描述";
 	private static final String ORDERBY_COLUMN_NAME_ORG_VALID="有效";
 	private String queryOrgId;
+	
 	public String getQueryOrgId() {
 		return queryOrgId;
 	}
@@ -40,13 +41,9 @@ public class OrgnizationQueryForm extends QueryFormBase {
 		this.queryOrgParentName = queryOrgParentName;
 	}
 
-
-
-
-
 	private String queryOrgName;
 	private String queryOrgParentName;
-	private boolean all;
+	private boolean queryAll;
 	
 	
 	@Override
@@ -60,13 +57,13 @@ public class OrgnizationQueryForm extends QueryFormBase {
 	}
 
 
-	public boolean isAll() {
-		return all;
+	public boolean isQueryAll() {
+		return queryAll;
 	}
 
 
-	public void setAll(boolean all) {
-		this.all = all;
+	public void setQueryAll(boolean queryAll) {
+		this.queryAll = queryAll;
 	}
 
 }

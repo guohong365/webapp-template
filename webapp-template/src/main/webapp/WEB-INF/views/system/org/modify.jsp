@@ -1,17 +1,14 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 
-<div id="detail-dialog" class="modal" tabindex="-1" role="dialog"
-	data-backdrop="static">
+<div id="detail-dialog" class="modal" tabindex="-1" role="dialog"	data-backdrop="static">
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<form:form modelAttribute="detailInput" cssClass="form-horizontal"
 				role="form">
 				<input type="hidden" id="action" name="action" value="${action }" />
-				<form:hidden path="orgId" />
 				<div class="modal-header no-padding">
 					<div class="table-header">
 						<button type="button" class="close" data-dismiss="modal"
@@ -31,27 +28,48 @@
 							<div class="widget-main">
 								<div class="row">
 									<div class="col-xs-12">
-										<div class="row">
+                      <c:choose>
+                        <c:when test="${action eq 'new' }">
+                          <div class="col-xs-12">
+                            <div class="form-group">
+                              <form:label path="id" cssClass="control-label col-xs-12 col-sm-3">
+                                <span class="red">*</span>机构ID：
+                              </form:label>
+                              <div class="col-xs-12 col-sm-9">
+                                <form:input path="id" cssClass="form-control"  placeholder="请输入机构ID..." />
+                              </div>
+                            </div>
+                          </div>
+                        </c:when>
+                        <c:otherwise>
+                          <div class="col-xs-12">
+                            <div class="form-group">
+                              <form:label path="id" cssClass="control-label col-xs-12 col-sm-3">机构ID： </form:label>
+                              <div class="col-xs-12 col-sm-9">
+                                <p class="form-control-static blue">${detailInput.id}</p>
+                                <form:hidden path="id"/>
+                              </div>
+                            </div>
+                          </div>
+                        </c:otherwise>  
+                      </c:choose>      
 											<div class="col-xs-12 ">
 												<div class="form-group">
-													<form:label path="orgName"
-														cssClass="control-label col-xs-12 col-sm-3">
+													<form:label path="name"	cssClass="control-label col-xs-12 col-sm-3">
 														<span class="red">*</span>机构名称：</form:label>
 													<div class="col-xs-12 col-sm-9">
-														<form:input path="orgName" cssClass="form-control"
+														<form:input path="name" cssClass="form-control"
 															placeholder="请输入机构名称..." />
 													</div>
 												</div>
 											</div>
-										</div>
-										<c:if test="${(detailInput.orgParentId!=null and detailInput.orgParentId!='') or action eq 'new'}">
-											<div class="row">
-												<div class="col-xs-12 col-sm-6">
+										<c:if test="${(detailInput.parentId!=null and detailInput.parentId!='') or action eq 'new'}">
+												<div class="col-xs-12">
 													<div class="form-group">
 														<form:label path="orgCity"
-															cssClass="control-label col-xs-12 col-sm-6">
+															cssClass="control-label col-xs-12 col-sm-3">
 															<span class="red">*</span>所属地市：</form:label>
-														<div class="col-xs-12 col-sm-6">
+														<div class="col-xs-12 col-sm-9">
 															<form:select path="orgCity"
 																cssClass="form-control need-one">
 																<form:options items="${cities }" itemLabel="value"
@@ -60,11 +78,11 @@
 														</div>
 													</div>
 												</div>
-												<div class="col-xs-12 col-sm-6">
+												<div class="col-xs-12">
 													<div class="form-group">
 														<form:label path="orgArea"
-															cssClass="control-label col-xs-12 col-sm-6">所属区县：</form:label>
-														<div class="col-xs-12 col-sm-6">
+															cssClass="control-label col-xs-12 col-sm-3">所属区县：</form:label>
+														<div class="col-xs-12 col-sm-9">
 															<form:select path="orgArea"
 																cssClass="form-control need-one">
 																<form:options items="${areas}" itemLabel="value"
@@ -75,40 +93,17 @@
 												</div>
 												<div class="col-xs-12">
 													<div class="form-group">
-														<form:label path="orgParentId"
+														<form:label path="parentId"
 															cssClass="control-label col-xs-12 col-sm-3">
 															<span class="red">*</span>上级机构：</form:label>
 														<div class="col-xs-12 col-sm-9">
-															<form:select path="orgParentId" cssClass="form-control">
+															<form:select path="parentId" cssClass="form-control">
 																<form:options items="${orgs}" itemLabel="value"	itemValue="code" />
 															</form:select>
 														</div>
 													</div>
 												</div>
-												<div class="col-xs-12">
-													<div class="form-group">
-														<form:label path="orgType"	cssClass="control-label col-xs-12 col-sm-3">
-															<span class="red">*</span>机构类别：</form:label>
-														<div class="col-xs-12 col-sm-9">
-															<label> <form:radiobutton path="orgType"
-																	cssClass="radion-inline" value="1" />管理机构
-															</label> <label> <form:radiobutton path="orgType"
-																	cssClass="radion-inline" value="2" />交换站点
-															</label>
-														</div>
-													</div>
-												</div>
-                        <div class="col-xs-12">
-                          <div class="form-group">
-                            <form:label path="orgPrefix" cssClass="control-label col-xs-12 col-sm-3">编号字头：</form:label>
-                            <div class="col-xs-12 col-sm-9">
-                              <form:input path="orgPrefix" cssClass="form-control" placeholder="服务对象编号字头..." />
-                            </div>
-                          </div>
-                        </div>
-											</div>
 										</c:if>
-										<div class="row">
 											<div class="col-xs-12">
 												<div class="form-group">
 													<form:label path="orgLinkman"
@@ -124,8 +119,7 @@
 													<form:label path="orgTele"
 														cssClass="control-label col-xs-12 col-sm-3">联系电话：</form:label>
 													<div class="col-xs-12 col-sm-9">
-														<form:input path="orgTele" cssClass="form-control"
-															placeholder="请输入联系电话..." />
+														<form:input path="orgTele" cssClass="form-control"	placeholder="请输入联系电话..." />
 													</div>
 												</div>
 											</div>
@@ -141,15 +135,14 @@
 											</div>
 											<div class="col-xs-12">
 												<div class="form-group">
-													<form:label path="orgDesc"
+													<form:label path="description"
 														cssClass="control-label col-xs-12 col-sm-3">机构描述：</form:label>
 													<div class="col-xs-12 col-sm-9">
-														<form:textarea path="orgDesc" cssClass="form-control"
+														<form:textarea path="description" cssClass="form-control"
 															placeholder="请输入机构描述..." />
 													</div>
 												</div>
 											</div>
-										</div>
 									</div>
 								</div>
 							</div>
@@ -196,18 +189,19 @@
 			errorClass : 'help-block align-right',
 			focusInvalid : false,
 			rules : {
+				id : { required : true },
 				orgName : {	required : true	},
-				orgParentId : {	required : true	},
+				parentId : {	required : true	},
 				orgCity : {	required : true	},
 				orgType : {	required : true	},
 				orgPrefix : { required : '#orgType2:checked' }
 			},
 			messages : {
+				orgName : { required : "机构ID不能为空！" },
 				orgName : {	required : "机构名称不能为空！"	},
 				orgParentId : {	required : "上级机构不能为空！"	},
 				orgCity : {	required : "地州不能为空！" },
 				orgType : {	required : "必须选择机构类型!"	},
-				orgPrefix : { required : "机构为站点时， 不能为空！"}
 			},
 			highlight : function(e) {
 				$(e).closest('.form-group').removeClass('has-success').addClass('has-error');

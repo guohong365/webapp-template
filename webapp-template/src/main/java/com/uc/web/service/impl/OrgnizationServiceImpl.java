@@ -22,7 +22,7 @@ public class OrgnizationServiceImpl extends AbstractAppServiceImpl<OrgnizationQu
 		if(!StringUtils.isEmpty(queryForm.getQueryOrgParentName())){
 			criteria.andParentOrgNameLike("%"+queryForm.getQueryOrgParentName()+"%");			
 		}
-		if(!queryForm.isAll()){
+		if(!queryForm.isQueryAll()){
 			criteria.andOrgDelFlagEqualTo(false);
 		}
 		return false;
@@ -32,5 +32,4 @@ public class OrgnizationServiceImpl extends AbstractAppServiceImpl<OrgnizationQu
 	protected OrgnizationDetailExample newExample() {
 		return new OrgnizationDetailExample();
 	}
-
 }

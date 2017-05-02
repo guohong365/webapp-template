@@ -11,7 +11,15 @@
     <div class="row">
       <!-- search condition begin -->
       <div class="col-xs-12">
-        <form:form cssClass="form-horizontal" role="form" modelAttribute="queryInput" action="system/org/list" method="POST">
+        <form:form cssClass="form-horizontal" role="form" modelAttribute="queryInput" action="#" method="POST">
+          <div class="col-xs-12 col-sm-6 col-lg-4">  
+            <div class="form-group">
+              <form:label path="queryOrgId" cssClass="control-label col-xs-12 col-sm-4">机构ID：</form:label>
+              <div class="col-xs-12 col-sm-8">
+                <form:input path="queryOrgId" cssClass="form-control" placeholder="输入机构全部或部分ID..." />
+              </div>
+            </div>
+          </div>
           <div class="col-xs-12 col-sm-12 col-lg-4">
             <div class="form-group">
               <form:label path="queryOrgName" cssClass="control-label col-xs-12 col-sm-2 col-lg-4">机构名称：</form:label>
@@ -19,31 +27,19 @@
                 <form:input cssClass="form-control" path="queryOrgName" placeholder="输入机构全部或部分名称..." />
               </div>
             </div>
-          </div>
+          </div>          
           <div class="col-xs-12 col-sm-6 col-lg-4">  
             <div class="form-group">
-              <form:label path="queryCity" cssClass="control-label col-xs-12 col-sm-4">所属地市：</form:label>
+              <form:label path="queryOrgParentName" cssClass="control-label col-xs-12 col-sm-4">上级机构名称：</form:label>
               <div class="col-xs-12 col-sm-8">
-                <form:select path="queryCity" cssClass="form-control">
-                  <form:options items="${cities}" itemLabel="value" itemValue="code" />
-                </form:select>
-              </div>
-            </div>
-          </div>
-          <div class="col-xs-12 col-sm-6 col-lg-4">  
-            <div class="form-group">
-              <form:label path="queryArea" cssClass="control-label col-xs-12 col-sm-4">所属区县：</form:label>
-              <div class="col-xs-12 col-sm-8">
-                <form:select path="queryArea" cssClass="form-control">
-                  <form:option value="">所有</form:option>
-                </form:select>
+                <form:input path="queryOrgParentName" cssClass="form-control" placeholder="输入上级机构全部或部分名称..." />
               </div>
             </div>
           </div>
           <div class="col-xs-12 col-sm-6 col-lg-4 col-lg-offset-8">
             <div class="form-group">
-              <form:label path="queryIsAll" cssClass="control-label col-sm-offset-4">                
-              <form:checkbox path="queryIsAll" cssClass="checkbox-inline" />&nbsp;包含注销</form:label>              
+              <form:label path="queryAll" cssClass="control-label col-sm-offset-4">                
+              <form:checkbox path="queryAll" cssClass="checkbox-inline" />&nbsp;包含注销</form:label>              
             </div>
           </div>
           <div class="col-xs-12">
@@ -79,15 +75,14 @@
             <!-- table data begin-->
             <input type="hidden" id="action" name="action" value="">            
             <input type="hidden" id="queryInput.queryOrgName" name="queryInput.queryOrgName"  />
-            <input type="hidden" id="queryInput.queryCity" name="queryInput.queryCity" value="${queryInput.queryCity }">
-            <input type="hidden" id="queryInput.queryArea" name="queryInput.queryArea" value="${queryInput.queryArea }" />
-            <input type="hidden" id="queryInput.queryIsAll" name="queryInput.queryIsAll" value="${queryInput.queryIsAll }" />
+            <input type="hidden" id="queryInput.queryOrgId" name="queryInput.queryOrgId" value="${queryInput.queryOrgId }">
+            <input type="hidden" id="queryInput.queryOrgParentName" name="queryInput.queryOrgParentName" value="${queryInput.queryOrgParentName }" />
+            <input type="hidden" id="queryInput.queryAll" name="queryInput.queryAll" value="${queryInput.queryAll }" />
             <input type="hidden" id="queryInput.queryOrder" name="queryInput.queryOrder" value="${queryInput.queryOrder}">
             <input type="hidden" id="queryInput.queryOrderBy" name="queryInput.queryOrderBy" value="${queryInput.queryOrderBy}">
             <input type="hidden" id="pageCtrl.pageCount" name="pageCtrl.pageCount" value="${pageCtrl.pageCount}" />
             <input type="hidden" id="pageCtrl.total" name="pageCtrl.total" value="${pageCtrl.total }" />
             <input type="hidden" id="pageCtrl.current" name="pageCtrl.current" value="${pageCtrl.current }" />
-            <input type="hidden" id="pageCtrl.action" name="pageCtrl.action" value="${pageCtrl.action }" />
             <input type="hidden" id="selectedId" name="selectedId" value="" />
             <table class="table table-striped table-bordered table-hover dataTable no-footer">
               <thead>

@@ -11,10 +11,13 @@ public class OrnizationControllerImpl extends AbstractController<OrgnizationQuer
 	private static final String DEFAULT_MODEL_TITLE="机构管理";
 	private static final String DEFAULT_ENTITY_NAME="机构";
 	
-	private ControllerInfo defaultControllerInfo=new ControllerInfoBase(DEFAULT_BASE_PATH, DEFAULT_ENTITY_NAME, DEFAULT_MODEL_TITLE);
+	private ControllerInfo defaultControllerInfo;
 	
 	@Override
 	protected ControllerInfo getDefaultControlerInto() {
+		if(defaultControllerInfo==null){
+			defaultControllerInfo=new ControllerInfoBase(DEFAULT_BASE_PATH, DEFAULT_ENTITY_NAME, DEFAULT_MODEL_TITLE);
+		}
 		return defaultControllerInfo;
 	}
 	@Override
@@ -24,6 +27,11 @@ public class OrnizationControllerImpl extends AbstractController<OrgnizationQuer
 	@Override
 	protected OrgnizationDetail onCreateNewDetail() {
 		return new OrgnizationDetail();
+	}
+	
+	@Override
+	protected String getNewPageName() {
+		return super.getModifyPageName();
 	}
 	
 }

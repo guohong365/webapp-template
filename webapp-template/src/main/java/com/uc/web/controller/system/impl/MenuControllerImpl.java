@@ -12,11 +12,14 @@ public class MenuControllerImpl extends AbstractController<MenuQueryForm, MenuDe
 	private static final String DEFAULT_ENTITY_NAME="菜单";
 	private static final String DEFAULT_TITLE="菜单管理";
 
-	private ControllerInfo controllerInfo=new ControllerInfoBase(DEFAULT_BASE_PATH, DEFAULT_ENTITY_NAME, DEFAULT_TITLE);
+	private ControllerInfo defaultControllerInfo;
 	
 	@Override
 	protected ControllerInfo getDefaultControlerInto() {
-		return controllerInfo;
+		if(defaultControllerInfo==null){
+			defaultControllerInfo=new ControllerInfoBase(DEFAULT_BASE_PATH, DEFAULT_ENTITY_NAME, DEFAULT_TITLE);
+		}
+		return defaultControllerInfo;
 	}
 
 	@Override
